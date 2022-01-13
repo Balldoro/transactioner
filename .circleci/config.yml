@@ -28,24 +28,44 @@ commands:
             - node_modules
 
 jobs:
-  build:
+  checkout_code:
     executor: node
     steps:
       - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo
+
+  build:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: ~/
       - restorecache
       - run: npm ci
       - savecache
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo/node_modules
+            - .cache
 
   test:
     executor: node
     steps:
+      - attach_workspace:
+          at: ~/
       - run: npm run test
 
 workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - build
+      - checkout_code
+      - build:
+          requires:
+            - checkout_code
       - test:
           requires:
             - build
