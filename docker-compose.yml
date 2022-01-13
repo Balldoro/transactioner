@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  frontend:
+    container_name: transactioner-fe
+    build: ./
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    ports:
+      - 4000:80
+    environment:
+      - CHOKIDAR_USEPOLLING=true
