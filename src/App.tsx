@@ -1,8 +1,13 @@
+import { Center, Heading } from "@chakra-ui/react";
+import AppProviders from "./components/AppProviders";
+
 const App = () => {
   return (
-    <main>
-      <h1>Hello App!</h1>
-    </main>
+    <AppProviders>
+      <Center as="main" minH="100vh">
+        <Heading>Hello App!</Heading>
+      </Center>
+    </AppProviders>
   );
 };
 
