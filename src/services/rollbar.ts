@@ -8,7 +8,7 @@ const rollbarConfig = {
   environment,
   captureUncaught: true,
   captureUnhandledRejections: true,
-  enabled: environment !== "production",
+  enabled: environment === "production",
 };
 
 const rollbarInstance = new Rollbar(rollbarConfig);
