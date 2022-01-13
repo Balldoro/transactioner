@@ -44,11 +44,13 @@ jobs:
           at: ~/
       - restorecache
       - run: npm ci
+      - run: npm run build
       - savecache
       - persist_to_workspace:
           root: ~/
           paths:
             - repo/node_modules
+            - repo/build
             - .cache
 
   test:
@@ -57,6 +59,15 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: npm run test
+
+  deploy:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Deploy to Netlify
+          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build -m \"$(git log -1 --pretty=%B)\"
 
 workflows:
   version: 2.1
@@ -69,3 +80,9 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
