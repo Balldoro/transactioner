@@ -13,11 +13,11 @@ type AppProvidersProps = {
 const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <Router>
-      <Auth0NavigateProvider>
-        <ChakraProvider theme={theme}>
-          <ErrorCatcher>{children}</ErrorCatcher>
-        </ChakraProvider>
-      </Auth0NavigateProvider>
+      <ChakraProvider theme={theme}>
+        <ErrorCatcher>
+          <Auth0NavigateProvider>{children}</Auth0NavigateProvider>
+        </ErrorCatcher>
+      </ChakraProvider>
     </Router>
   );
 };
