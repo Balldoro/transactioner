@@ -16,8 +16,17 @@ const items = [
   { icon: faIdCard, path: RoutePaths.PROFILE, title: "Profile" },
 ];
 
-const Sidebar = () => {
+type SidebarProps = {
+  isOpen: boolean;
+  closeSidebarFromLink: () => void;
+};
+
+const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
   const { pathname } = useLocation();
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <Box
@@ -38,6 +47,7 @@ const Sidebar = () => {
             title={title}
             path={path}
             isActive={path === pathname}
+            handleClick={closeSidebarFromLink}
           />
         ))}
       </Flex>

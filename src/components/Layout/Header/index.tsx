@@ -1,7 +1,12 @@
 import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-const Header = () => {
+
+type HeaderProps = {
+  handleMenuClick: () => void;
+};
+
+const Header = ({ handleMenuClick }: HeaderProps) => {
   return (
     <Box
       as="header"
@@ -14,11 +19,14 @@ const Header = () => {
       <Flex justify="space-between" align="center">
         <Flex align="center">
           <IconButton
+            onClick={handleMenuClick}
             display={{ md: "none" }}
             mr="4"
-            aria-label="sksk"
+            aria-label="open menu"
             size="sm"
-            icon={<FontAwesomeIcon icon={faBars} />}></IconButton>
+            bg="transparent"
+            icon={<FontAwesomeIcon icon={faBars} />}
+          />
 
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="medium">
             Transactioner

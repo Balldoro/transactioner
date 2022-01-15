@@ -9,13 +9,21 @@ type SidebarItemProps = {
   title: string;
   path: RoutePaths;
   isActive: boolean;
+  handleClick: () => void;
 };
 
-const SidebarItem = ({ icon, title, path, isActive }: SidebarItemProps) => {
+const SidebarItem = ({
+  icon,
+  title,
+  path,
+  isActive,
+  handleClick,
+}: SidebarItemProps) => {
   return (
     <ChakraLink
       as={NavLink}
       to={path}
+      onClick={handleClick}
       py={2}
       px={[4, 8]}
       mx={["auto", "auto", 0]}
