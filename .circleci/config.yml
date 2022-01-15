@@ -43,6 +43,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - restorecache
+      - run:
+          name: Set env variables
+          command: |
+            echo REACT_APP_ROLLBAR_ACCESS_TOKEN=${REACT_APP_ROLLBAR_ACCESS_TOKEN} >> .env
+            echo REACT_APP_AUTH0_DOMAIN=${REACT_APP_AUTH0_DOMAIN} >> .env
+            echo REACT_APP_AUTH0_CLIENT=${REACT_APP_AUTH0_CLIENT} >> .env
       - run: npm ci
       - run: npm run build
       - savecache
