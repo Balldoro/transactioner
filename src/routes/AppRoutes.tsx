@@ -19,6 +19,8 @@ const AppRoutes = () => {
         <Route path={RoutePaths.BASE} element={<Layout />}>
           <Route path={RoutePaths.BASE} element={<Dashboard />} />
           <Route path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+          <Route path={RoutePaths.GROUPS} element={<Dashboard />} />
+          <Route path={RoutePaths.PROFILE} element={<Dashboard />} />
         </Route>
       </Route>
     </Routes>
