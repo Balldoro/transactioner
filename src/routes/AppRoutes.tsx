@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { RoutePaths } from "./RoutePaths";
 import Dashboard from "components/Dashboard";
+import Layout from "components/Layout";
 
 const AppRoutes = () => {
   const { isLoading } = useAuth0();
@@ -15,8 +16,10 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path={RoutePaths.BASE} element={<PrivateRoute />}>
-        <Route path={RoutePaths.BASE} element={<Dashboard />} />
-        <Route path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+        <Route path={RoutePaths.BASE} element={<Layout />}>
+          <Route path={RoutePaths.BASE} element={<Dashboard />} />
+          <Route path={RoutePaths.DASHBOARD} element={<Dashboard />} />
+        </Route>
       </Route>
     </Routes>
   );
