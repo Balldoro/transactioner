@@ -25,10 +25,10 @@ const GroupsList = () => {
     <Flex direction="column">
       <Button
         as={Link}
-        alignSelf="flex-end"
+        alignSelf={{ base: "stretch", sm: "flex-end" }}
         colorScheme="blue"
         to={RoutePaths.NEW_GROUP}
-        mb="8">
+        my="8">
         {t("add-new-group")}
       </Button>
       <SimpleGrid minChildWidth="260px" spacing="6">

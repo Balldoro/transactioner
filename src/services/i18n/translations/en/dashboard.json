@@ -2,5 +2,6 @@
   "add-new-group": "Add new group",
   "you-dont-have-groups": "You don't have any created groups yet!",
   "create-new-group": "Create new group",
-  "open-group-menu": "Open group menu"
+  "open-group-menu": "Open group menu",
+  "hello-user": "Hello {{user}}!"
 }
