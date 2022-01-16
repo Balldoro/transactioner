@@ -12,10 +12,12 @@ import {
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Group } from "modules/dashboard/types";
+import { useTranslation } from "react-i18next";
 
 type GroupCardProps = Group;
 
 const GroupCard = ({ name, icon, description, users }: GroupCardProps) => {
+  const { t } = useTranslation("dashboard");
   return (
     <Flex
       as="section"
@@ -32,7 +34,7 @@ const GroupCard = ({ name, icon, description, users }: GroupCardProps) => {
           icon={
             <Icon as={FontAwesomeIcon} icon={faEllipsisV} color="gray.400" />
           }
-          aria-label="open group menu"
+          aria-label={t("open-group-menu")}
         />
       </Flex>
 

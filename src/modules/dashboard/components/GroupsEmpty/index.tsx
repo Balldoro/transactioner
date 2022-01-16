@@ -1,10 +1,12 @@
 import { Flex, VStack, Icon, Heading, Button } from "@chakra-ui/react";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { RoutePaths } from "routes/RoutePaths";
 
 const GroupsEmpty = () => {
+  const { t } = useTranslation("dashboard");
   return (
     <Flex align="center" justify="center" height="100%">
       <VStack spacing="8">
@@ -15,10 +17,10 @@ const GroupsEmpty = () => {
           color="gray.300"
         />
         <Heading textAlign="center" fontWeight="medium">
-          You don't have any created groups yet!
+          {t("you-dont-have-groups")}
         </Heading>
         <Button as={Link} colorScheme="blue" to={RoutePaths.NEW_GROUP}>
-          Create new group
+          {t("create-new-group")}
         </Button>
       </VStack>
     </Flex>

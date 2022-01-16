@@ -6,12 +6,14 @@ import en_common from "./translations/en/common.json";
 import pl_common from "./translations/pl/common.json";
 import en_layout from "./translations/en/layout.json";
 import pl_layout from "./translations/pl/layout.json";
+import en_dashboard from "./translations/en/dashboard.json";
+import pl_dashboard from "./translations/pl/dashboard.json";
 
 import { LANGUAGES } from "./types";
 
 export const resources = {
-  en: { common: en_common, layout: en_layout },
-  pl: { common: pl_common, layout: pl_layout },
+  en: { common: en_common, layout: en_layout, dashboard: en_dashboard },
+  pl: { common: pl_common, layout: pl_layout, dashboard: pl_dashboard },
 } as const;
 
 i18n
