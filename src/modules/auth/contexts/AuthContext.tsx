@@ -18,7 +18,7 @@ type AuthContextProviderProps = {
 };
 
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const { logout, user: auth0User } = useAuth0();
+  const { logout, isLoading, user: auth0User } = useAuth0();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -31,6 +31,10 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const logoutUser = () => {
     logout({ returnTo: window.location.origin });
   };
+
+  if (isLoading) {
+    return <h1>LOADING...</h1>;
+  }
 
   return (
     <AuthContext.Provider value={{ user, logoutUser }}>

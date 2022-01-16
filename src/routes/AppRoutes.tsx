@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Route, Routes } from "react-router-dom";
 
 import PrivateRoute from "./PrivateRoute";
@@ -7,12 +6,6 @@ import Dashboard from "components/Dashboard";
 import Layout from "components/Layout";
 
 const AppRoutes = () => {
-  const { isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
   return (
     <Routes>
       <Route path={RoutePaths.BASE} element={<PrivateRoute />}>

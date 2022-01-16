@@ -23,16 +23,21 @@ import { RoutePaths } from "routes/RoutePaths";
 const UserProfile = () => {
   const { user, logoutUser } = useAuthContext();
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <Flex align="center">
       <HStack spacing="5">
-        <Avatar name="User profile image" src={user?.picture} size="sm" />
+        <Avatar name="User profile image" src={user.picture} size="sm" />
         <Text
           display={{ base: "none", md: "block" }}
           fontSize="lg"
           fontWeight="medium">
-          {user?.nickname}
+          {user.nickname}
         </Text>
+
         <Menu>
           <MenuButton
             size="xs"
