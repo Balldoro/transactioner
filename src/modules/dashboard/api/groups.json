@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Styczeń",
     "description": "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
     "icon": "snowman.png",
@@ -16,6 +17,7 @@
     ]
   },
   {
+    "id": 2,
     "name": "Wycieczka",
     "description": "lorem ipsum dolor si",
     "icon": "travel-big.png",
@@ -32,6 +34,7 @@
     ]
   },
   {
+    "id": 3,
     "name": "Mieszkanie",
     "description": "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
     "icon": "house.png",
@@ -48,6 +51,7 @@
     ]
   },
   {
+    "id": 4,
     "name": "Wakacje",
     "description": "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
     "icon": "summer-holidays.png",
@@ -64,6 +68,7 @@
     ]
   },
   {
+    "id": 5,
     "name": "Impreza",
     "description": "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
     "icon": "party-time.png",
@@ -80,6 +85,7 @@
     ]
   },
   {
+    "id": 6,
     "name": "Remont",
     "description": "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
     "icon": "renovation.png",

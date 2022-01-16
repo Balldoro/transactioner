@@ -33,7 +33,7 @@ const GroupsList = () => {
       </Button>
       <SimpleGrid minChildWidth="260px" spacing="6">
         {groups.map(group => (
-          <GroupCard {...group} key={group.name} />
+          <GroupCard {...group} key={group.id} />
         ))}
       </SimpleGrid>
     </Flex>

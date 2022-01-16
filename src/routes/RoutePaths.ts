@@ -5,4 +5,5 @@ export enum RoutePaths {
   SETTINGS = "/settings",
   GROUPS = "/groups",
   NEW_GROUP = "/groups/new",
+  GROUP = "/group",
 }
