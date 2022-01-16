@@ -1,4 +1,6 @@
 {
   "hello-app": "Hello App!",
-  "switch-language": "Switch language to {{lang}}"
+  "switch-language": "Switch language to {{lang}}",
+  "delete": "Delete",
+  "edit": "Edit"
 }
