@@ -8,11 +8,11 @@ import useSidebar from "./useSidebar";
 const Layout = () => {
   const { isOpen, toggleSidebar, closeSidebarFromLink } = useSidebar();
   return (
-    <Flex direction="column">
+    <Flex direction="column" minH="100vh">
       <Header handleMenuClick={toggleSidebar} />
       <Flex bg="gray.100" flex="1">
         <Sidebar isOpen={isOpen} closeSidebarFromLink={closeSidebarFromLink} />
-        <Container as="main" maxW="container.xl">
+        <Container as="main" maxW="container.xl" pt="8">
           <Outlet />
         </Container>
       </Flex>
