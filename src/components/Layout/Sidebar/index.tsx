@@ -9,12 +9,7 @@ import {
 import { RoutePaths } from "routes/RoutePaths";
 import { HEADER_HEIGHT_LARGE, HEADER_HEIGHT_SMALL } from "../HEADER_HEIGHT";
 import SidebarItem from "./SidebarItem";
-
-const items = [
-  { icon: faColumns, path: RoutePaths.DASHBOARD, title: "Dashboard" },
-  { icon: faUsers, path: RoutePaths.GROUPS, title: "Grupy" },
-  { icon: faIdCard, path: RoutePaths.PROFILE, title: "Profile" },
-];
+import { useTranslation } from "react-i18next";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -23,6 +18,13 @@ type SidebarProps = {
 
 const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
   const { pathname } = useLocation();
+  const { t } = useTranslation("layout");
+
+  const items = [
+    { icon: faColumns, path: RoutePaths.DASHBOARD, title: t("dashboard") },
+    { icon: faUsers, path: RoutePaths.GROUPS, title: t("groups") },
+    { icon: faIdCard, path: RoutePaths.PROFILE, title: t("profile") },
+  ];
 
   if (!isOpen) {
     return null;

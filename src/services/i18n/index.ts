@@ -4,11 +4,14 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en_common from "./translations/en/common.json";
 import pl_common from "./translations/pl/common.json";
+import en_layout from "./translations/en/layout.json";
+import pl_layout from "./translations/pl/layout.json";
+
 import { LANGUAGES } from "./types";
 
 export const resources = {
-  en: { common: en_common },
-  pl: { common: pl_common },
+  en: { common: en_common, layout: en_layout },
+  pl: { common: pl_common, layout: pl_layout },
 } as const;
 
 i18n
