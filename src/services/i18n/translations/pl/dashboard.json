@@ -4,5 +4,6 @@
   "create-new-group": "Stwórz nową grupę",
   "open-group-menu": "Otwórz menu grupy",
   "hello-user": "Witaj {{user}}!",
-  "go-to-group": "Przejdź do grupy"
+  "go-to-group": "Przejdź do grupy",
+  "group-icon": "Ikona grupy"
 }

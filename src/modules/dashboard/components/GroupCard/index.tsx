@@ -28,7 +28,7 @@ const GroupCard = ({ name, icon, description, users, id }: GroupCardProps) => {
       p="4"
       bg="white">
       <Flex justify="space-between">
-        <Image src={icon} boxSize="32px" />
+        <Image src={icon} boxSize="32px" alt={t("group-icon")} />
         <GroupCardMenu />
       </Flex>
       <VStack
