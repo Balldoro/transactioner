@@ -1,6 +1,7 @@
 import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import UserProfile from "../UserProfile";
 
 type HeaderProps = {
   handleMenuClick: () => void;
@@ -32,19 +33,7 @@ const Header = ({ handleMenuClick }: HeaderProps) => {
             Transactioner
           </Text>
         </Flex>
-        <Flex>
-          <div
-            style={{
-              borderRadius: "50%",
-              width: "28px",
-              height: "28px",
-              backgroundColor: "blue",
-            }}
-          />
-          <Text display={{ base: "none", md: "block" }} ml="4">
-            User username
-          </Text>
-        </Flex>
+        <UserProfile />
       </Flex>
     </Box>
   );
