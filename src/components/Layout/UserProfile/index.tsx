@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import {
   Avatar,
   Flex,
@@ -16,11 +15,13 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import RouteLink from "components/RouteLink";
+import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import { RoutePaths } from "routes/RoutePaths";
 
 const UserProfile = () => {
-  const { user, logout } = useAuth0();
+  const { user, logoutUser } = useAuthContext();
 
   return (
     <Flex align="center">
@@ -48,7 +49,7 @@ const UserProfile = () => {
             </RouteLink>
             <MenuItem
               icon={<FontAwesomeIcon icon={faSignOutAlt} />}
-              onClick={() => logout({ returnTo: window.location.origin })}>
+              onClick={logoutUser}>
               Log Out
             </MenuItem>
           </MenuList>
