@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Portal,
   Text,
 } from "@chakra-ui/react";
 import {
@@ -48,18 +49,20 @@ const UserProfile = () => {
             icon={<FontAwesomeIcon icon={faChevronDown} />}
             variant="outline"
           />
-          <MenuList>
-            <RouteLink to={RoutePaths.SETTINGS}>
-              <MenuItem icon={<FontAwesomeIcon icon={faCog} />}>
-                {t("settings")}
+          <Portal>
+            <MenuList>
+              <RouteLink to={RoutePaths.SETTINGS}>
+                <MenuItem icon={<FontAwesomeIcon icon={faCog} />}>
+                  {t("settings")}
+                </MenuItem>
+              </RouteLink>
+              <MenuItem
+                icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+                onClick={logoutUser}>
+                {t("logout")}
               </MenuItem>
-            </RouteLink>
-            <MenuItem
-              icon={<FontAwesomeIcon icon={faSignOutAlt} />}
-              onClick={logoutUser}>
-              {t("logout")}
-            </MenuItem>
-          </MenuList>
+            </MenuList>
+          </Portal>
         </Menu>
       </HStack>
     </Flex>
