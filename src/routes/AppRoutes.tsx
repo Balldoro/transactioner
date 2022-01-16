@@ -21,6 +21,7 @@ const AppRoutes = () => {
           <Route path={RoutePaths.DASHBOARD} element={<Dashboard />} />
           <Route path={RoutePaths.GROUPS} element={<Dashboard />} />
           <Route path={RoutePaths.PROFILE} element={<Dashboard />} />
+          <Route path={RoutePaths.SETTINGS} element={<Dashboard />} />
         </Route>
       </Route>
     </Routes>

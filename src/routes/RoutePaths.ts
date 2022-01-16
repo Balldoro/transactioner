@@ -3,4 +3,5 @@ export enum RoutePaths {
   DASHBOARD = "/dashboard",
   PROFILE = "/profile",
   GROUPS = "/groups",
+  SETTINGS = "/settings",
 }
