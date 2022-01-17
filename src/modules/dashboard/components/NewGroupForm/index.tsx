@@ -57,7 +57,6 @@ const NewGroupForm = () => {
   const [categories] = useState<Category[]>(categoriesJSON);
 
   const submit = handleSubmit(data => {
-    console.log(data);
     navigate(`${RoutePaths.GROUP}/${data.title}`);
   });
 
