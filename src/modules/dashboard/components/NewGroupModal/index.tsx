@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import NewGroupForm from "../NewGroupForm";
 
 type NewGroupModalProps = {
@@ -14,6 +15,8 @@ type NewGroupModalProps = {
 };
 
 const NewGroupModal = ({ isOpen, handleClose }: NewGroupModalProps) => {
+  const { t } = useTranslation("dashboard");
+
   return (
     <Modal
       onClose={handleClose}
@@ -22,7 +25,7 @@ const NewGroupModal = ({ isOpen, handleClose }: NewGroupModalProps) => {
       scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create new group</ModalHeader>
+        <ModalHeader>{t("create-new-group")}</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody pb="4">

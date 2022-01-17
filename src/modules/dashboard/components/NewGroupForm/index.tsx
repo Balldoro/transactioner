@@ -18,6 +18,7 @@ import { Currency, User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import CategoryIconRadio from "../CategoryIconRadio";
+import { useTranslation } from "react-i18next";
 
 type NewGroupFormValues = {
   category: string;
@@ -43,6 +44,7 @@ const NewGroupForm = () => {
     control,
   } = useForm<NewGroupFormValues>({ defaultValues });
 
+  const { t } = useTranslation(["dashboard", "common"]);
   const { user } = useAuthContext();
   const { field } = useController({
     control,
@@ -61,7 +63,9 @@ const NewGroupForm = () => {
   return (
     <form onSubmit={submit}>
       <VStack spacing="4" align="flex-start">
-        <ControlWrapper label="Category" error={errors.category?.message}>
+        <ControlWrapper
+          label={t("dashboard:category")}
+          error={errors.category?.message}>
           <SimpleGrid
             minChildWidth="48px"
             width="100%"
@@ -77,7 +81,9 @@ const NewGroupForm = () => {
           </SimpleGrid>
         </ControlWrapper>
 
-        <ControlWrapper label="Title" error={errors.title?.message}>
+        <ControlWrapper
+          label={t("dashboard:title")}
+          error={errors.title?.message}>
           <Input
             {...register("title", {
               required: "This field is required!",
@@ -85,17 +91,21 @@ const NewGroupForm = () => {
           />
         </ControlWrapper>
 
-        <ControlWrapper label="Description" error={errors.description?.message}>
+        <ControlWrapper
+          label={t("dashboard:description")}
+          error={errors.description?.message}>
           <Input {...register("description")} />
         </ControlWrapper>
 
-        <ControlWrapper label="Currency" error={errors.currency?.message}>
+        <ControlWrapper
+          label={t("common:currency")}
+          error={errors.currency?.message}>
           <Select {...register("currency", { required: "obligatory" })}>
             <option value="PLN">PLN</option>
           </Select>
         </ControlWrapper>
 
-        <ControlWrapper label="Friends">
+        <ControlWrapper label={t("dashboard:friends")}>
           <VStack spacing="4" align="flex-start">
             <Checkbox isDisabled defaultChecked>
               <Avatar size="xs" src={user?.picture} mr="2" />
@@ -121,7 +131,7 @@ const NewGroupForm = () => {
         </ControlWrapper>
 
         <Button type="submit" colorScheme="blue" isFullWidth>
-          Create
+          {t("common:create")}
         </Button>
       </VStack>
     </form>
