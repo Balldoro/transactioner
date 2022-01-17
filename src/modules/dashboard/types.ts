@@ -11,3 +11,5 @@ export type User = {
   nickname: string;
   picture: string;
 };
+
+export type Currency = "PLN";
