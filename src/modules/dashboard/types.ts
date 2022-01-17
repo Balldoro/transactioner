@@ -13,3 +13,16 @@ export type User = {
 };
 
 export type Currency = "PLN";
+
+export type Category = {
+  name: string;
+  src: string;
+};
+
+export type NewGroupFormValues = {
+  category: string;
+  title: string;
+  description?: string;
+  currency: Currency;
+  friends: string[];
+};

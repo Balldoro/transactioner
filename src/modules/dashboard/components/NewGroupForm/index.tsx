@@ -11,22 +11,17 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm, Controller, useController } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 import friendsJSON from "modules/dashboard/api/friends.json";
 import categoriesJSON from "modules/dashboard/api/categories.json";
-import { Currency, User } from "modules/dashboard/types";
+import { Category, NewGroupFormValues, User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import CategoryIconRadio from "../CategoryIconRadio";
-import { useTranslation } from "react-i18next";
-
-type NewGroupFormValues = {
-  category: string;
-  title: string;
-  description?: string;
-  currency: Currency;
-  friends: string[];
-};
+import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
+import { isYupRequired } from "utils/isYupRequired";
 
 const defaultValues: NewGroupFormValues = {
   category: "",
@@ -36,34 +31,37 @@ const defaultValues: NewGroupFormValues = {
   friends: [],
 };
 
+const isFieldRequired = (field: keyof NewGroupFormValues) =>
+  isYupRequired(newGroupScheme, field);
+
 const NewGroupForm = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<NewGroupFormValues>({ defaultValues });
+  } = useForm<NewGroupFormValues>({
+    defaultValues,
+    resolver: yupResolver(newGroupScheme),
+  });
 
   const { t } = useTranslation(["dashboard", "common"]);
   const { user } = useAuthContext();
-  const { field } = useController({
-    control,
-    name: "category",
-    rules: { required: "Catgory required" },
-  });
+  const { field } = useController({ control, name: "category" });
   const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
   const [friends] = useState<User[]>(friendsJSON);
-  const [categories] = useState<any[]>(categoriesJSON);
+  const [categories] = useState<Category[]>(categoriesJSON);
 
   const submit = handleSubmit(data => {
     console.log(data);
   });
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} noValidate>
       <VStack spacing="4" align="flex-start">
         <ControlWrapper
+          isRequired={isFieldRequired("category")}
           label={t("dashboard:category")}
           error={errors.category?.message}>
           <SimpleGrid
@@ -82,30 +80,31 @@ const NewGroupForm = () => {
         </ControlWrapper>
 
         <ControlWrapper
+          isRequired={isFieldRequired("title")}
           label={t("dashboard:title")}
           error={errors.title?.message}>
-          <Input
-            {...register("title", {
-              required: "This field is required!",
-            })}
-          />
+          <Input {...register("title")} />
         </ControlWrapper>
 
         <ControlWrapper
+          isRequired={isFieldRequired("description")}
           label={t("dashboard:description")}
           error={errors.description?.message}>
           <Input {...register("description")} />
         </ControlWrapper>
 
         <ControlWrapper
+          isRequired={isFieldRequired("currency")}
           label={t("common:currency")}
           error={errors.currency?.message}>
-          <Select {...register("currency", { required: "obligatory" })}>
+          <Select {...register("currency")}>
             <option value="PLN">PLN</option>
           </Select>
         </ControlWrapper>
 
-        <ControlWrapper label={t("dashboard:friends")}>
+        <ControlWrapper
+          isRequired={isFieldRequired("friends")}
+          label={t("dashboard:friends")}>
           <VStack spacing="4" align="flex-start">
             <Checkbox isDisabled defaultChecked>
               <Avatar size="xs" src={user?.picture} mr="2" />
