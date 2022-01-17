@@ -15,7 +15,6 @@ const AppRoutes = () => {
           <Route path={RoutePaths.GROUPS} element={<Dashboard />} />
           <Route path={RoutePaths.PROFILE} element={<Dashboard />} />
           <Route path={RoutePaths.SETTINGS} element={<Dashboard />} />
-          <Route path={RoutePaths.NEW_GROUP} element={<Dashboard />} />
           <Route path={`${RoutePaths.GROUP}/:id`} element={<Dashboard />} />
         </Route>
       </Route>

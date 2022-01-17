@@ -5,5 +5,10 @@
   "open-group-menu": "Open group menu",
   "hello-user": "Hello {{user}}!",
   "go-to-group": "Go to group",
-  "group-icon": "Group icon"
+  "group-icon": "Group icon",
+
+  "category": "Category",
+  "title": "Title",
+  "description": "Description",
+  "friends": "Friends"
 }

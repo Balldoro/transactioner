@@ -1,12 +1,25 @@
-import { Flex, VStack, Icon, Heading, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  VStack,
+  Icon,
+  Heading,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { RoutePaths } from "routes/RoutePaths";
+
+import NewGroupModal from "../NewGroupModal";
 
 const GroupsEmpty = () => {
   const { t } = useTranslation("dashboard");
+  const {
+    isOpen: isNewGroupModalOpen,
+    onOpen: handleOpenNewGroupModal,
+    onClose: handleCloseNewGroupModal,
+  } = useDisclosure();
+
   return (
     <Flex align="center" justify="center" height="100%">
       <VStack spacing="8">
@@ -19,10 +32,14 @@ const GroupsEmpty = () => {
         <Heading textAlign="center" fontWeight="medium">
           {t("you-dont-have-groups")}
         </Heading>
-        <Button as={Link} colorScheme="blue" to={RoutePaths.NEW_GROUP}>
+        <Button colorScheme="blue" onClick={handleOpenNewGroupModal}>
           {t("create-new-group")}
         </Button>
       </VStack>
+      <NewGroupModal
+        isOpen={isNewGroupModalOpen}
+        handleClose={handleCloseNewGroupModal}
+      />
     </Flex>
   );
 };
