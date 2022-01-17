@@ -1,0 +1,8 @@
+[
+  { "name": "winter", "src": "snowman.png" },
+  { "name": "renovation", "src": "renovation.png" },
+  { "name": "holidays", "src": "summer-holidays.png" },
+  { "name": "party", "src": "party-time.png" },
+  { "name": "travel", "src": "travel.png" },
+  { "name": "home", "src": "house.png" }
+]

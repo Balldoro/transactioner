@@ -4,5 +4,10 @@ export type Group = {
   description: string;
   icon: string;
   currency: string;
-  users: { nickname: string; picture: string }[];
+  users: User[];
+};
+
+export type User = {
+  nickname: string;
+  picture: string;
 };

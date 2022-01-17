@@ -1,16 +1,21 @@
-import { Button, Flex, SimpleGrid } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, Flex, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { RoutePaths } from "routes/RoutePaths";
 import groupsJSON from "modules/dashboard/api/groups.json";
 import { Group } from "modules/dashboard/types";
 import GroupCard from "../GroupCard";
 import GroupsEmpty from "../GroupsEmpty";
+import NewGroupModal from "../NewGroupModal";
 
 const GroupsList = () => {
   const { t } = useTranslation("dashboard");
+  const {
+    isOpen: isNewGroupModalOpen,
+    onOpen: handleOpenNewGroupModal,
+    onClose: handleCloseNewGroupModal,
+  } = useDisclosure();
+
   const [groups, setGroups] = useState<Group[]>([]);
 
   useEffect(() => {
@@ -24,10 +29,9 @@ const GroupsList = () => {
   return (
     <Flex direction="column">
       <Button
-        as={Link}
         alignSelf={{ base: "stretch", sm: "flex-end" }}
         colorScheme="blue"
-        to={RoutePaths.NEW_GROUP}
+        onClick={handleOpenNewGroupModal}
         my="8">
         {t("add-new-group")}
       </Button>
@@ -36,6 +40,10 @@ const GroupsList = () => {
           <GroupCard {...group} key={group.id} />
         ))}
       </SimpleGrid>
+      <NewGroupModal
+        isOpen={isNewGroupModalOpen}
+        handleClose={handleCloseNewGroupModal}
+      />
     </Flex>
   );
 };
