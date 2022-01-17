@@ -22,6 +22,8 @@ import ControlWrapper from "components/Inputs/ControlWrapper";
 import CategoryIconRadio from "../CategoryIconRadio";
 import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
 import { isYupRequired } from "utils/isYupRequired";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "routes/RoutePaths";
 
 const defaultValues: NewGroupFormValues = {
   category: "",
@@ -45,6 +47,7 @@ const NewGroupForm = () => {
     resolver: yupResolver(newGroupScheme),
   });
 
+  const navigate = useNavigate();
   const { t } = useTranslation(["dashboard", "common"]);
   const { user } = useAuthContext();
   const { field } = useController({ control, name: "category" });
@@ -55,6 +58,7 @@ const NewGroupForm = () => {
 
   const submit = handleSubmit(data => {
     console.log(data);
+    navigate(`${RoutePaths.GROUP}/${data.title}`);
   });
 
   return (
