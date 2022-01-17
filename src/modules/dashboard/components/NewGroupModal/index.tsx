@@ -2,10 +2,10 @@ import {
   Avatar,
   Button,
   Checkbox,
+  CheckboxGroup,
   FormControl,
+  FormErrorMessage,
   FormLabel,
-  IconButton,
-  Image,
   Input,
   Modal,
   ModalBody,
@@ -15,25 +15,61 @@ import {
   ModalOverlay,
   Select,
   SimpleGrid,
+  useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useForm, Controller, useController } from "react-hook-form";
 
 import friendsJSON from "modules/dashboard/api/friends.json";
 import categoriesJSON from "modules/dashboard/api/categories.json";
 import { User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
+import CategoryIconRadio from "../CategoryIconRadio";
 
 type NewGroupModalProps = {
   isOpen: boolean;
   handleClose: () => void;
 };
 
+type NewGroupFormValues = {
+  category: string;
+  title: string;
+  description?: string;
+  currency: Currency;
+  friends: string[];
+};
+
+type Currency = "PLN";
+
+const defaultValues: NewGroupFormValues = {
+  category: "",
+  title: "",
+  description: "",
+  currency: "PLN",
+  friends: [],
+};
+
 const NewGroupModal = ({ isOpen, handleClose }: NewGroupModalProps) => {
   const { user } = useAuthContext();
-  const [friends, setFriends] = useState<User[]>(friendsJSON);
-  const [categories, setCategories] = useState<any[]>(categoriesJSON);
-  const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    control,
+  } = useForm<NewGroupFormValues>({ defaultValues });
+
+  const { field } = useController({ control, name: "category" });
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    ...field,
+  });
+  const [friends] = useState<User[]>(friendsJSON);
+  const [categories] = useState<any[]>(categoriesJSON);
+
+  const submit = handleSubmit(data => {
+    console.log(data);
+  });
 
   return (
     <Modal
@@ -46,63 +82,83 @@ const NewGroupModal = ({ isOpen, handleClose }: NewGroupModalProps) => {
         <ModalHeader>Create new group</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb="4">
-          <form>
+          <form onSubmit={submit}>
             <VStack spacing="4" align="flex-start">
-              <SimpleGrid minChildWidth="48px" width="100%" spacing="4">
-                {categories.map(({ src, name }) => (
-                  <IconButton
-                    key={name}
-                    maxW="48px"
-                    onClick={() => setSelectedIcon(name)}
-                    {...(selectedIcon === name && {
-                      bg: "blue.200",
-                      borderWidth: "2px",
-                      borderStyle: "solid",
-                      borderColor: "blue.600",
-                    })}
-                    _hover={{ bg: "blue.200" }}
-                    icon={
-                      <Image src={src} borderRadius="full" boxSize="32px" />
-                    }
-                    size="lg"
-                    aria-label="group icon"
-                    alignSelf="flex-start"
-                    borderRadius="full"
-                  />
-                ))}
-              </SimpleGrid>
+              <FormControl isInvalid={Boolean(errors.category)}>
+                <FormLabel>Category</FormLabel>
+                <SimpleGrid
+                  minChildWidth="48px"
+                  width="100%"
+                  spacing="4"
+                  {...getRootProps()}>
+                  {categories.map(({ src, name }) => (
+                    <CategoryIconRadio
+                      key={name}
+                      radioProps={getRadioProps({ value: name })}
+                      src={src}
+                    />
+                  ))}
+                </SimpleGrid>
+              </FormControl>
 
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input />
+              <FormControl isInvalid={Boolean(errors.title)}>
+                <FormLabel>Title</FormLabel>
+                <Input
+                  {...register("title", {
+                    required: "This field is required!",
+                  })}
+                />
+                {errors.title && (
+                  <FormErrorMessage>{errors.title.message}</FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={Boolean(errors.description)}>
                 <FormLabel>Description</FormLabel>
-                <Input />
+                <Input {...register("description")} />
+                {errors.description && (
+                  <FormErrorMessage>
+                    {errors.description.message}
+                  </FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={Boolean(errors.currency)}>
                 <FormLabel>Currency</FormLabel>
-                <Select placeholder="Choose currency">
-                  <option value="option1">PLN</option>
-                  <option value="option2">EUR</option>
+                <Select {...register("currency", { required: "oblig" })}>
+                  <option value="PLN">PLN</option>
                 </Select>
+                {errors.currency && (
+                  <FormErrorMessage>{errors.currency.message}</FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl>
+              <FormControl isInvalid={Boolean(errors.friends)}>
                 <FormLabel>Friends</FormLabel>
                 <VStack spacing="4" align="flex-start">
-                  <Checkbox isDisabled defaultChecked>
+                  <Checkbox
+                    isDisabled
+                    defaultChecked
+                    {...register("friends")}
+                    name="user">
                     <Avatar size="xs" src={user?.picture} mr="2" />
                     {user?.nickname} (You)
                   </Checkbox>
                   {friends.map(({ nickname, picture }) => (
-                    <Checkbox key={nickname}>
-                      <Avatar size="xs" src={picture} mr="2" />
-                      {nickname}
-                    </Checkbox>
+                    <Controller
+                      key={nickname}
+                      control={control}
+                      name="friends"
+                      render={({ field: { ref, ...rest } }) => (
+                        <CheckboxGroup {...rest}>
+                          <Checkbox value={nickname} textTransform="capitalize">
+                            <Avatar size="xs" src={picture} mr="2" />
+                            {nickname}
+                          </Checkbox>
+                        </CheckboxGroup>
+                      )}
+                    />
                   ))}
                 </VStack>
               </FormControl>
-              <Button colorScheme="blue" isFullWidth>
+              <Button type="submit" colorScheme="blue" isFullWidth>
                 Create
               </Button>
             </VStack>
