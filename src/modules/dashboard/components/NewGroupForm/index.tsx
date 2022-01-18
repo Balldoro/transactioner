@@ -13,16 +13,15 @@ import { useState } from "react";
 import { useForm, Controller, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import friendsJSON from "modules/dashboard/api/friends.json";
-import categoriesJSON from "modules/dashboard/api/categories.json";
+import { categoriesJSON, friendsJSON } from "modules/dashboard/api";
 import { Category, NewGroupFormValues, User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import CategoryIconRadio from "../CategoryIconRadio";
 import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
 import { isYupRequired } from "utils/isYupRequired";
-import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "routes/RoutePaths";
 
 const defaultValues: NewGroupFormValues = {
