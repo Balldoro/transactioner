@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+import LoadingSpinner from "components/LoadingSpinner";
+
 type User = {
   nickname: string;
   picture: string;
@@ -33,7 +35,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   if (isLoading) {
-    return <h1>LOADING...</h1>;
+    return <LoadingSpinner isFullPage />;
   }
 
   return (
