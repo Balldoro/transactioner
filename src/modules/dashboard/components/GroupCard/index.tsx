@@ -17,8 +17,10 @@ import GroupCardMenu from "../GroupCardMenu";
 
 type GroupCardProps = Group;
 
-const GroupCard = ({ name, icon, description, users, id }: GroupCardProps) => {
+const GroupCard = (group: GroupCardProps) => {
   const { t } = useTranslation("dashboard");
+  const { name, icon, description, users, id } = group;
+
   return (
     <Flex
       as="section"
@@ -29,7 +31,7 @@ const GroupCard = ({ name, icon, description, users, id }: GroupCardProps) => {
       bg="white">
       <Flex justify="space-between">
         <Image src={icon} boxSize="32px" alt={t("group-icon")} />
-        <GroupCardMenu />
+        <GroupCardMenu group={group} />
       </Flex>
       <VStack
         pt="4"

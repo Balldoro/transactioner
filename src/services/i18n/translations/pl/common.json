@@ -2,6 +2,9 @@
   "hello-app": "Witaj aplikacjo!",
   "switch-language": "Zmień język na {{lang}}",
   "delete": "Usuń",
+  "remove": "Usuń",
+  "remove-name": "Usuń {{name}}",
+  "cancel": "Anuluj",
   "edit": "Edytuj",
   "create": "Utwórz",
   "currency": "Waluta"
