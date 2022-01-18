@@ -2,7 +2,7 @@ import { Button, Flex, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import groupsJSON from "modules/dashboard/api/groups.json";
+import { groupsJSON } from "modules/dashboard/api";
 import { Group } from "modules/dashboard/types";
 import GroupCard from "../GroupCard";
 import GroupsEmpty from "../GroupsEmpty";
