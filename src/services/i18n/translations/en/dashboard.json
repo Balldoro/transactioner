@@ -10,5 +10,7 @@
   "category": "Category",
   "title": "Title",
   "description": "Description",
-  "friends": "Friends"
+  "friends": "Friends",
+
+  "remove-group-confirm": "Are you sure that you want to permamently delete \"{{name}}\" group?"
 }

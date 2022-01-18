@@ -13,10 +13,18 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Group } from "modules/dashboard/types";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import DeleteGroupModal from "../DeleteGroupModal";
 
-const GroupCardMenu = () => {
+type GroupCardMenuProps = {
+  group: Group;
+};
+
+const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
   const { t } = useTranslation(["dashboard", "common"]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
     <Menu>
@@ -32,11 +40,19 @@ const GroupCardMenu = () => {
           <MenuItem icon={<FontAwesomeIcon icon={faEdit} />}>
             {t("common:edit")}
           </MenuItem>
-          <MenuItem color="red.600" icon={<FontAwesomeIcon icon={faTrash} />}>
+          <MenuItem
+            color="red.600"
+            icon={<FontAwesomeIcon icon={faTrash} />}
+            onClick={() => setIsDeleteModalOpen(true)}>
             {t("common:delete")}
           </MenuItem>
         </MenuList>
       </Portal>
+      <DeleteGroupModal
+        isOpen={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        group={group}
+      />
     </Menu>
   );
 };
