@@ -33,7 +33,8 @@ const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
   return (
     <Box
       as="aside"
-      position="sticky"
+      position={{ base: "fixed", md: "sticky" }}
+      zIndex="2"
       bg="white"
       top={{ base: HEADER_HEIGHT_SMALL, md: HEADER_HEIGHT_LARGE }}
       height={{
