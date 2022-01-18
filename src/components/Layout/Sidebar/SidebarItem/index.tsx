@@ -1,6 +1,6 @@
-import { Flex, Text, HStack, Icon, Link as ChakraLink } from "@chakra-ui/react";
+import { Flex, Text, HStack, Link as ChakraLink } from "@chakra-ui/react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AwesomeIcon from "components/AwesomeIcon";
 import { NavLink } from "react-router-dom";
 import { RoutePaths } from "routes/RoutePaths";
 
@@ -36,11 +36,7 @@ const SidebarItem = ({
       _hover={{ textDecoration: "none", bg: "gray.200", color: "gray.900" }}>
       <Flex justify={{ base: "center", md: "flex-start" }}>
         <HStack spacing={"4"}>
-          <Icon
-            as={FontAwesomeIcon}
-            icon={icon}
-            fontSize={{ base: "xl", md: "medium" }}
-          />
+          <AwesomeIcon icon={icon} fontSize={{ base: "xl", md: "medium" }} />
           <Text display={{ base: "none", md: "block" }}>{title}</Text>
         </HStack>
       </Flex>

@@ -15,11 +15,11 @@ import {
   faCog,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 
+import AwesomeIcon from "components/AwesomeIcon";
 import RouteLink from "components/RouteLink";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
-import { useTranslation } from "react-i18next";
 import { RoutePaths } from "routes/RoutePaths";
 
 const UserProfile = () => {
@@ -46,18 +46,18 @@ const UserProfile = () => {
             size="xs"
             as={IconButton}
             aria-label="Options"
-            icon={<FontAwesomeIcon icon={faChevronDown} />}
+            icon={<AwesomeIcon icon={faChevronDown} />}
             variant="outline"
           />
           <Portal>
             <MenuList>
               <RouteLink to={RoutePaths.SETTINGS}>
-                <MenuItem icon={<FontAwesomeIcon icon={faCog} />}>
+                <MenuItem icon={<AwesomeIcon icon={faCog} />}>
                   {t("settings")}
                 </MenuItem>
               </RouteLink>
               <MenuItem
-                icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+                icon={<AwesomeIcon icon={faSignOutAlt} />}
                 onClick={logoutUser}>
                 {t("logout")}
               </MenuItem>

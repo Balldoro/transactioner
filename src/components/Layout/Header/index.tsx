@@ -1,7 +1,8 @@
 import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+
 import UserProfile from "../UserProfile";
+import AwesomeIcon from "components/AwesomeIcon";
 
 type HeaderProps = {
   handleMenuClick: () => void;
@@ -26,7 +27,7 @@ const Header = ({ handleMenuClick }: HeaderProps) => {
             aria-label="open menu"
             size="sm"
             bg="transparent"
-            icon={<FontAwesomeIcon icon={faBars} />}
+            icon={<AwesomeIcon icon={faBars} />}
           />
 
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="medium">
