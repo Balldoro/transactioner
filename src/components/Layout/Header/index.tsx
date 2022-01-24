@@ -16,6 +16,9 @@ const Header = ({ handleMenuClick }: HeaderProps) => {
       top="0"
       zIndex="1"
       bg="white"
+      borderBottomWidth="1px"
+      borderBottomStyle="solid"
+      borderBottomColor="gray.200"
       px={[4, 8]}
       py={4}>
       <Flex justify="space-between" align="center">

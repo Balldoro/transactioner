@@ -12,7 +12,7 @@ const Layout = () => {
       <Header handleMenuClick={toggleSidebar} />
       <Flex bg="gray.100" flex="1">
         <Sidebar isOpen={isOpen} closeSidebarFromLink={closeSidebarFromLink} />
-        <Container as="main" maxW="container.xl" pt="8">
+        <Container as="main" maxW="container.xl" pt="8" pb="4">
           <Outlet />
         </Container>
       </Flex>

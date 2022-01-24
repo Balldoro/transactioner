@@ -42,7 +42,7 @@ const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
         md: `calc(100vh - ${HEADER_HEIGHT_LARGE})`,
       }}
       w={{ base: "120px", md: "260px" }}>
-      <Flex as="nav" flexDir="column">
+      <Flex as="nav" flexDir="column" pt="2">
         {items.map(({ icon, title, path }) => (
           <SidebarItem
             key={path}
