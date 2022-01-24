@@ -8,6 +8,8 @@ import en_layout from "./translations/en/layout.json";
 import pl_layout from "./translations/pl/layout.json";
 import en_dashboard from "./translations/en/dashboard.json";
 import pl_dashboard from "./translations/pl/dashboard.json";
+import en_category from "./translations/en/category.json";
+import pl_category from "./translations/pl/category.json";
 import en_validations from "./translations/en/validations.json";
 import pl_validations from "./translations/pl/validations.json";
 
@@ -18,12 +20,14 @@ export const resources = {
     common: en_common,
     layout: en_layout,
     dashboard: en_dashboard,
+    category: en_category,
     validations: en_validations,
   },
   pl: {
     common: pl_common,
     layout: pl_layout,
     dashboard: pl_dashboard,
+    category: pl_category,
     validations: pl_validations,
   },
 } as const;
