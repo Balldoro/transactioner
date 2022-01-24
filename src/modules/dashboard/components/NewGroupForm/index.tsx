@@ -9,13 +9,12 @@ import {
   useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { categoriesJSON, friendsJSON } from "modules/dashboard/api";
 import { Category, NewGroupFormValues, User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
@@ -23,6 +22,8 @@ import CategoryIconRadio from "../CategoryIconRadio";
 import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
 import { isYupRequired } from "utils/isYupRequired";
 import { RoutePaths } from "routes/RoutePaths";
+import { getFriends, getCategories } from "modules/dashboard/api";
+import LoadingSpinner from "components/LoadingSpinner";
 
 const defaultValues: NewGroupFormValues = {
   category: "",
@@ -52,12 +53,38 @@ const NewGroupForm = () => {
   const { field } = useController({ control, name: "category" });
   const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
-  const [friends] = useState<User[]>(friendsJSON);
-  const [categories] = useState<Category[]>(categoriesJSON);
+  const [friends, setFriends] = useState<User[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const friends = await getFriends();
+      setFriends(friends);
+    };
+
+    const fetchCategories = async () => {
+      const categories = await getCategories();
+      setCategories(categories);
+    };
+
+    const fetchData = async () => {
+      setIsLoading(true);
+      await fetchFriends();
+      await fetchCategories();
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   const submit = handleSubmit(data => {
     navigate(`${RoutePaths.GROUP}/${data.title}`);
   });
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <form onSubmit={submit} noValidate>
