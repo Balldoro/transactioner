@@ -83,7 +83,7 @@ const NewGroupForm = () => {
   });
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner size="lg" isCentered />;
   }
 
   return (

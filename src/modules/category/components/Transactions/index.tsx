@@ -22,7 +22,7 @@ const Transactions = ({ group }: TransactionsProps) => {
         <Button colorScheme="blue">{t("create-new-transaction")}</Button>
       </Flex>
 
-      {group.transactions.length !== 0 && <EmptyTransactions />}
+      {group.transactions.length === 0 && <EmptyTransactions />}
     </VStack>
   );
 };
