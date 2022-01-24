@@ -47,7 +47,7 @@ const UserProfile = () => {
             as={IconButton}
             aria-label="Options"
             icon={<AwesomeIcon icon={faChevronDown} />}
-            variant="outline"
+            variant="unstyled"
           />
           <Portal>
             <MenuList>
