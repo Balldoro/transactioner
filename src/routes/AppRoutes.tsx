@@ -4,6 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import { RoutePaths } from "./RoutePaths";
 import Dashboard from "modules/dashboard/pages/Dashboard";
 import Layout from "components/Layout";
+import CategoryOverview from "modules/category/pages/CategoryOverview";
 
 const AppRoutes = () => {
   return (
@@ -15,7 +16,10 @@ const AppRoutes = () => {
           <Route path={RoutePaths.GROUPS} element={<Dashboard />} />
           <Route path={RoutePaths.PROFILE} element={<Dashboard />} />
           <Route path={RoutePaths.SETTINGS} element={<Dashboard />} />
-          <Route path={`${RoutePaths.GROUP}/:id`} element={<Dashboard />} />
+          <Route
+            path={`${RoutePaths.GROUP}/:id`}
+            element={<CategoryOverview />}
+          />
         </Route>
       </Route>
     </Routes>
