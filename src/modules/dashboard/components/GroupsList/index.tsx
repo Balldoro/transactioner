@@ -2,11 +2,12 @@ import { Button, Flex, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { groupsJSON } from "modules/dashboard/api";
 import { Group } from "modules/dashboard/types";
 import GroupCard from "../GroupCard";
 import GroupsEmpty from "../GroupsEmpty";
 import NewGroupModal from "../NewGroupModal";
+import LoadingSpinner from "components/LoadingSpinner";
+import { getGroups } from "modules/dashboard/api";
 
 const GroupsList = () => {
   const { t } = useTranslation("dashboard");
@@ -17,10 +18,22 @@ const GroupsList = () => {
   } = useDisclosure();
 
   const [groups, setGroups] = useState<Group[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setGroups(groupsJSON);
+    const fetchGroups = async () => {
+      setIsLoading(true);
+      const groups = await getGroups();
+      setGroups(groups);
+      setIsLoading(false);
+    };
+
+    fetchGroups();
   }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner isFullPage />;
+  }
 
   if (groups.length === 0) {
     return <GroupsEmpty />;
