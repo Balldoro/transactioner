@@ -10,5 +10,5 @@
   "title": "Tytuł",
   "description": "Opis",
 
-  "remove-group-confirm": "Na pewno chcesz permanentnie usunąć grupę {{name}}?"
+  "remove-group-confirm": "Na pewno chcesz permanentnie usunąć grupę \"{{name}}\"?"
 }
