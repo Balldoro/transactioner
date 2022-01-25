@@ -1,11 +1,18 @@
 {
   "hello-app": "Hello App!",
   "switch-language": "Switch language to {{lang}}",
+
   "delete": "Delete",
   "remove": "Remove",
   "remove-name": "Remove {{name}}",
   "cancel": "Cancel",
   "edit": "Edit",
   "create": "Create",
-  "currency": "Currency"
+
+  "currency": "Currency",
+  "friends": "Friends",
+  "amount": "Amount",
+  "name": "Name",
+  "title": "Title",
+  "date": "Date"
 }
