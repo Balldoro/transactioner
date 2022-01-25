@@ -20,6 +20,7 @@ const data = {
   ],
   transactions: [
     {
+      id: 1,
       category: {
         name: "Restaurants",
         picture: restaurant,
@@ -47,6 +48,7 @@ const data = {
       ],
     },
     {
+      id: 2,
       category: {
         name: "Shops",
         picture: shoppingBags,
@@ -74,6 +76,7 @@ const data = {
       ],
     },
     {
+      id: 3,
       category: {
         name: "Medical",
         picture: medical,
