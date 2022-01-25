@@ -3,5 +3,6 @@
   "overview": "Podgląd",
   "statistics": "Statystyki",
   "you-dont-have-transactions": "Nie masz jeszcze dodanych transakcji",
-  "create-transaction": "Utwórz transakcję"
+  "create-transaction": "Utwórz transakcję",
+  "remove-transaction-confirm": "Na pewno chcesz usunąć transakcję \"{{name}}\"?"
 }

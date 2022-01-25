@@ -9,7 +9,6 @@
   "category": "Kategoria",
   "title": "Tytuł",
   "description": "Opis",
-  "friends": "Znajomi",
 
   "remove-group-confirm": "Na pewno chcesz permanentnie usunąć grupę {{name}}?"
 }

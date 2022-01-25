@@ -3,5 +3,6 @@
   "overview": "Overview",
   "statistics": "Statistics",
   "you-dont-have-transactions": "You don't have any transactions yet!",
-  "create-transaction": "Create transaction"
+  "create-transaction": "Create transaction",
+  "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?"
 }

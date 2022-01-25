@@ -133,7 +133,7 @@ const NewGroupForm = () => {
 
         <ControlWrapper
           isRequired={isFieldRequired("friends")}
-          label={t("dashboard:friends")}>
+          label={t("common:friends")}>
           <VStack spacing="4" align="flex-start">
             <Checkbox isDisabled defaultChecked>
               <Avatar size="xs" src={user?.picture} mr="2" />
