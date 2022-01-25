@@ -17,11 +17,13 @@ import {
   Avatar,
   Divider,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AwesomeIcon from "components/AwesomeIcon";
 import { Transaction } from "modules/category/types";
 import { useTranslation } from "react-i18next";
+import DeleteTransactionModal from "../DeleteTransactionModal";
 
 type TransactionDrawerProps = {
   transaction: Transaction;
@@ -36,9 +38,20 @@ const TransactionDrawer = ({
   currency,
   handleClose,
 }: TransactionDrawerProps) => {
-  const { category, name, amount, involvedUsers, date } = transaction;
+  const { category, name, amount, involvedUsers, date, id } = transaction;
 
   const { t } = useTranslation("common");
+
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: openDeleteModal,
+    onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const deleteTransaction = () => {
+    closeDeleteModal();
+    handleClose();
+  };
 
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={handleClose} size="md">
@@ -75,6 +88,7 @@ const TransactionDrawer = ({
                 {t("edit")}
               </Button>
               <Button
+                onClick={openDeleteModal}
                 size="sm"
                 leftIcon={<AwesomeIcon icon={faTrash} />}
                 variant="outline"
@@ -110,6 +124,13 @@ const TransactionDrawer = ({
           </VStack>
         </DrawerBody>
       </DrawerContent>
+      <DeleteTransactionModal
+        isOpen={isDeleteModalOpen}
+        handleClose={closeDeleteModal}
+        handleConfirm={deleteTransaction}
+        name={name}
+        id={id}
+      />
     </Drawer>
   );
 };
