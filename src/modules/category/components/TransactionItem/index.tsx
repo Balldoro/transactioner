@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  AvatarGroup,
-  Flex,
-  IconButton,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Image, Text, VStack } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import AwesomeIcon from "components/AwesomeIcon";
@@ -17,15 +9,14 @@ type TransactionItemProps = {
   currency: string;
 };
 
-const TransactionItem = ({
-  transaction: { category, name, date, amount, involvedUsers },
-  currency,
-}: TransactionItemProps) => {
+const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
+  const { category, name, date, amount } = transaction;
+
   return (
     <VStack
       width="100%"
       direction="column"
-      spacing="3"
+      spacing="2"
       justify="space-between"
       align="flex-start"
       p="4"
@@ -64,12 +55,6 @@ const TransactionItem = ({
           </Text>
         </Flex>
       </Flex>
-
-      <AvatarGroup size="sm" max={3}>
-        {involvedUsers.map(({ picture, nickname }: any) => (
-          <Avatar src={picture} name={nickname} key={nickname} />
-        ))}
-      </AvatarGroup>
     </VStack>
   );
 };
