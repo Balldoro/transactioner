@@ -1,8 +1,16 @@
-import { Flex, IconButton, Image, Text, VStack } from "@chakra-ui/react";
+import {
+  Flex,
+  IconButton,
+  Image,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 import AwesomeIcon from "components/AwesomeIcon";
 import { Transaction } from "modules/category/types";
+import TransactionDrawer from "../TransactionDrawer";
 
 type TransactionItemProps = {
   transaction: Transaction;
@@ -11,6 +19,12 @@ type TransactionItemProps = {
 
 const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
   const { category, name, date, amount } = transaction;
+
+  const {
+    isOpen: isTransactionDrawerOpen,
+    onClose: closeTransactionDrawer,
+    onOpen: openTransactionDrawer,
+  } = useDisclosure();
 
   return (
     <VStack
@@ -30,6 +44,7 @@ const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
           icon={<AwesomeIcon icon={faChevronRight} />}
           aria-label="more"
           color="blue.500"
+          onClick={openTransactionDrawer}
         />
       </Flex>
 
@@ -55,6 +70,13 @@ const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
           </Text>
         </Flex>
       </Flex>
+
+      <TransactionDrawer
+        transaction={transaction}
+        currency={currency}
+        isOpen={isTransactionDrawerOpen}
+        handleClose={closeTransactionDrawer}
+      />
     </VStack>
   );
 };
