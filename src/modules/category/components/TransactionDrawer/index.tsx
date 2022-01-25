@@ -17,11 +17,14 @@ import {
   Avatar,
   Divider,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import AwesomeIcon from "components/AwesomeIcon";
-import { Transaction } from "modules/category/types";
 import { useTranslation } from "react-i18next";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import AwesomeIcon from "components/AwesomeIcon";
+import DeleteModal from "components/DeleteModal";
+import { Transaction } from "modules/category/types";
 
 type TransactionDrawerProps = {
   transaction: Transaction;
@@ -38,7 +41,18 @@ const TransactionDrawer = ({
 }: TransactionDrawerProps) => {
   const { category, name, amount, involvedUsers, date } = transaction;
 
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(["common", "category"]);
+
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: openDeleteModal,
+    onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const deleteTransaction = () => {
+    closeDeleteModal();
+    handleClose();
+  };
 
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={handleClose} size="md">
@@ -72,35 +86,36 @@ const TransactionDrawer = ({
                 leftIcon={<AwesomeIcon icon={faEdit} />}
                 variant="outline"
                 colorScheme="blue">
-                {t("edit")}
+                {t("common:edit")}
               </Button>
               <Button
+                onClick={openDeleteModal}
                 size="sm"
                 leftIcon={<AwesomeIcon icon={faTrash} />}
                 variant="outline"
                 colorScheme="red">
-                {t("delete")}
+                {t("common:delete")}
               </Button>
             </HStack>
             <Stat>
-              <StatLabel>{t("name")}</StatLabel>
+              <StatLabel>{t("common:name")}</StatLabel>
               <StatNumber fontSize="xl">{name}</StatNumber>
             </Stat>
 
             <Stat>
-              <StatLabel>{t("amount")}</StatLabel>
+              <StatLabel>{t("common:amount")}</StatLabel>
               <StatNumber fontSize="xl">
                 {amount} {currency}
               </StatNumber>
             </Stat>
 
             <Stat>
-              <StatLabel>{t("date")}</StatLabel>
+              <StatLabel>{t("common:date")}</StatLabel>
               <StatNumber fontSize="xl">{date}</StatNumber>
             </Stat>
 
             <Stat>
-              <StatLabel>{t("friends")}</StatLabel>
+              <StatLabel>{t("common:friends")}</StatLabel>
               <AvatarGroup size="sm" max={3}>
                 {involvedUsers.map(({ picture, nickname }) => (
                   <Avatar src={picture} name={nickname} key={nickname} />
@@ -110,6 +125,14 @@ const TransactionDrawer = ({
           </VStack>
         </DrawerBody>
       </DrawerContent>
+
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        infoText={t("category:remove-transaction-confirm", { name })}
+        handleClose={closeDeleteModal}
+        handleConfirm={deleteTransaction}
+        name={name}
+      />
     </Drawer>
   );
 };

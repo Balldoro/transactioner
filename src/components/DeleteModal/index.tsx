@@ -6,52 +6,53 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  HStack,
   Button,
   Text,
-  HStack,
 } from "@chakra-ui/react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Group } from "modules/dashboard/types";
 import { useTranslation } from "react-i18next";
 
-type DeleteGroupModalProps = {
+type DeleteModalProps = {
   isOpen: boolean;
-  group: Group;
+  name: string;
+  infoText: string;
+
   handleClose: () => void;
+  handleConfirm: () => void;
 };
 
-const DeleteGroupModal = ({
+const DeleteModal = ({
   isOpen,
-  group,
+  name,
+  infoText,
   handleClose,
-}: DeleteGroupModalProps) => {
-  const { t } = useTranslation(["common", "dashboard"]);
+  handleConfirm,
+}: DeleteModalProps) => {
+  const { t } = useTranslation("common");
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader color="red.600">
-          {t("common:remove-name", { name: group.name })}
-        </ModalHeader>
+        <ModalHeader color="red.600">{t("remove-name", { name })}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text color="gray.500">
-            {t("dashboard:remove-group-confirm", { name: group.name })}
-          </Text>
+          <Text color="gray.500">{infoText}</Text>
         </ModalBody>
 
         <ModalFooter>
           <HStack spacing="4">
             <Button variant="ghost" onClick={handleClose}>
-              {t("common:cancel")}
+              {t("cancel")}
             </Button>
             <Button
+              onClick={handleConfirm}
               colorScheme="red"
               mr={3}
               leftIcon={<FontAwesomeIcon icon={faTrash} />}>
-              {t("common:delete")}
+              {t("delete")}
             </Button>
           </HStack>
         </ModalFooter>
@@ -59,4 +60,4 @@ const DeleteGroupModal = ({
     </Modal>
   );
 };
-export default DeleteGroupModal;
+export default DeleteModal;

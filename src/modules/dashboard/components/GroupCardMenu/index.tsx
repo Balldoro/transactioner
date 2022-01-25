@@ -5,26 +5,35 @@ import {
   Portal,
   MenuList,
   MenuItem,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   faEllipsisV,
   faEdit,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Group } from "modules/dashboard/types";
-import DeleteGroupModal from "../DeleteGroupModal";
 import AwesomeIcon from "components/AwesomeIcon";
+import DeleteModal from "components/DeleteModal";
 
 type GroupCardMenuProps = {
   group: Group;
 };
 
-const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
+const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
   const { t } = useTranslation(["dashboard", "common"]);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: openDeleteModal,
+    onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const deleteGroup = () => {
+    closeDeleteModal();
+  };
 
   return (
     <Menu>
@@ -43,15 +52,18 @@ const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
           <MenuItem
             color="red.600"
             icon={<AwesomeIcon icon={faTrash} />}
-            onClick={() => setIsDeleteModalOpen(true)}>
+            onClick={openDeleteModal}>
             {t("common:delete")}
           </MenuItem>
         </MenuList>
       </Portal>
-      <DeleteGroupModal
+
+      <DeleteModal
         isOpen={isDeleteModalOpen}
-        handleClose={() => setIsDeleteModalOpen(false)}
-        group={group}
+        infoText={t("dashboard:remove-group-confirm", { name })}
+        handleClose={closeDeleteModal}
+        handleConfirm={deleteGroup}
+        name={name}
       />
     </Menu>
   );
