@@ -12,9 +12,9 @@ import {
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Group } from "modules/dashboard/types";
 import Transactions from "modules/category/components/Transactions";
 import { getGroupInfo } from "modules/category/api";
+import { FullGroup } from "modules/category/types";
 import LoadingSpinner from "components/LoadingSpinner";
 
 // TODO: rename Category to Group
@@ -22,7 +22,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 const CategoryOverview = () => {
   const { t } = useTranslation("category");
 
-  const [groupInfo, setGroupInfo] = useState<Group | null>(null);
+  const [groupInfo, setGroupInfo] = useState<FullGroup | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

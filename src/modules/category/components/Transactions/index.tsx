@@ -1,7 +1,9 @@
 import { Box, Button, Flex, Heading, VStack } from "@chakra-ui/react";
-import { FullGroup } from "modules/category/types";
 import { useTranslation } from "react-i18next";
+
+import { FullGroup } from "modules/category/types";
 import EmptyTransactions from "../EmptyTransactions";
+import TransactionItem from "../TransactionItem";
 
 type TransactionsProps = {
   group: FullGroup;
@@ -27,7 +29,17 @@ const Transactions = ({ group }: TransactionsProps) => {
           <Button colorScheme="blue">{t("create-transaction")}</Button>
         </Flex>
 
-        {group.transactions.length === 0 && <EmptyTransactions />}
+        {group.transactions.length === 0 ? (
+          <EmptyTransactions />
+        ) : (
+          group.transactions.map(transaction => (
+            <TransactionItem
+              key={transaction.id}
+              transaction={transaction}
+              currency={group.currency}
+            />
+          ))
+        )}
       </VStack>
     </Box>
   );
