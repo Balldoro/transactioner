@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Group } from "modules/dashboard/types";
 import AwesomeIcon from "components/AwesomeIcon";
 import DeleteModal from "components/DeleteModal";
+import EditGroupModal from "../EditGroupModal";
 
 type GroupCardMenuProps = {
   group: Group;
@@ -31,6 +32,12 @@ const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
     isOpen: isDeleteModalOpen,
     onOpen: openDeleteModal,
     onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const {
+    isOpen: isEditModalOpen,
+    onOpen: openEditModal,
+    onClose: closeEditModal,
   } = useDisclosure();
 
   const deleteGroup = () => {
@@ -48,7 +55,9 @@ const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
       />
       <Portal>
         <MenuList minW="160px">
-          <MenuItem icon={<AwesomeIcon icon={faEdit} />}>
+          <MenuItem
+            icon={<AwesomeIcon icon={faEdit} />}
+            onClick={openEditModal}>
             {t("common:edit")}
           </MenuItem>
           <MenuItem
@@ -60,13 +69,23 @@ const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
         </MenuList>
       </Portal>
 
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        infoText={t("dashboard:remove-group-confirm", { name: title })}
-        handleClose={closeDeleteModal}
-        handleConfirm={deleteGroup}
-        name={title}
-      />
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          infoText={t("dashboard:remove-group-confirm", { name: title })}
+          handleClose={closeDeleteModal}
+          handleConfirm={deleteGroup}
+          name={title}
+        />
+      )}
+
+      {isEditModalOpen && (
+        <EditGroupModal
+          isOpen={isEditModalOpen}
+          handleClose={closeEditModal}
+          group={group}
+        />
+      )}
     </Menu>
   );
 };
