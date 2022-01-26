@@ -19,7 +19,7 @@ export type Category = {
   src: string;
 };
 
-export type NewGroupFormValues = {
+export type GroupFormValues = {
   category: string;
   title: string;
   description?: string;

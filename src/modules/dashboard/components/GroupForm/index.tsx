@@ -9,57 +9,47 @@ import {
   useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
+import {
+  useForm,
+  Controller,
+  useController,
+  SubmitHandler,
+} from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useForm, Controller, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
-import {
-  Category,
-  Group,
-  NewGroupFormValues,
-  User,
-} from "modules/dashboard/types";
+import { Category, GroupFormValues, User } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
-import ControlWrapper from "components/Inputs/ControlWrapper";
-import CategoryIconRadio from "../CategoryIconRadio";
 import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
-import { isYupRequired } from "utils/isYupRequired";
-import { RoutePaths } from "routes/RoutePaths";
 import { getFriends, getCategories } from "modules/dashboard/api";
+import ControlWrapper from "components/Inputs/ControlWrapper";
 import LoadingSpinner from "components/LoadingSpinner";
+import { isYupRequired } from "utils/isYupRequired";
+import CategoryIconRadio from "../CategoryIconRadio";
 
-const isFieldRequired = (field: keyof NewGroupFormValues) =>
+type GroupFormProps = {
+  defaultValues: GroupFormValues;
+  submitText: string;
+  submit: SubmitHandler<GroupFormValues>;
+};
+
+const isFieldRequired = (field: keyof GroupFormValues) =>
   isYupRequired(newGroupScheme, field);
 
-type EditGroupFormProps = { group: Group };
-
-const EditGroupForm = ({
-  group: { category, title, description, currency, users },
-}: EditGroupFormProps) => {
-  const defaultValues: NewGroupFormValues = {
-    category: category.name,
-    title,
-    description,
-    currency,
-    friends: users.map(({ nickname }) => nickname),
-  };
-
-  const { t } = useTranslation(["dashboard", "common"]);
-  const navigate = useNavigate();
-  const { user } = useAuthContext();
-
+const GroupForm = ({ defaultValues, submitText, submit }: GroupFormProps) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<NewGroupFormValues>({
+  } = useForm<GroupFormValues>({
     defaultValues,
     resolver: yupResolver(newGroupScheme),
   });
 
+  const { t } = useTranslation(["dashboard", "common"]);
+  const { user } = useAuthContext();
   const { field } = useController({ control, name: "category" });
   const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
@@ -88,16 +78,12 @@ const EditGroupForm = ({
     fetchData();
   }, []);
 
-  const submit = handleSubmit(data => {
-    navigate(`${RoutePaths.GROUP}/${data.title}`);
-  });
-
   if (isLoading) {
     return <LoadingSpinner size="lg" isCentered />;
   }
 
   return (
-    <form onSubmit={submit} noValidate>
+    <form onSubmit={handleSubmit(submit)} noValidate>
       <VStack spacing="4" align="flex-start">
         <ControlWrapper
           isRequired={isFieldRequired("category")}
@@ -122,7 +108,7 @@ const EditGroupForm = ({
           isRequired={isFieldRequired("title")}
           label={t("dashboard:title")}
           error={errors.title?.message}>
-          <Input {...register("title")} />
+          <Input {...register("title")} autoFocus />
         </ControlWrapper>
 
         <ControlWrapper
@@ -169,10 +155,10 @@ const EditGroupForm = ({
         </ControlWrapper>
 
         <Button type="submit" colorScheme="blue" isFullWidth>
-          {t("common:edit")}
+          {submitText}
         </Button>
       </VStack>
     </form>
   );
 };
-export default EditGroupForm;
+export default GroupForm;

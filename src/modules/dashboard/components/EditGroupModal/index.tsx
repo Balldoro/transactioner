@@ -7,9 +7,10 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { SubmitHandler } from "react-hook-form";
 
-import { Group } from "modules/dashboard/types";
-import EditGroupForm from "../EditGroupForm";
+import { Group, GroupFormValues } from "modules/dashboard/types";
+import GroupForm from "../GroupForm";
 
 type EditGroupModalProps = {
   isOpen: boolean;
@@ -19,10 +20,22 @@ type EditGroupModalProps = {
 
 const EditGroupModal = ({
   isOpen,
-  group,
+  group: { title, description, currency, category, users },
   handleClose,
 }: EditGroupModalProps) => {
-  const { t } = useTranslation("dashboard");
+  const { t } = useTranslation(["dashboard", "common"]);
+
+  const defaultValues: GroupFormValues = {
+    category: category.name,
+    title,
+    description,
+    currency,
+    friends: users.map(({ nickname }) => nickname),
+  };
+
+  const handleSubmit: SubmitHandler<GroupFormValues> = data => {
+    handleClose();
+  };
 
   return (
     <Modal
@@ -32,11 +45,17 @@ const EditGroupModal = ({
       scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t("edit-group-name", { name: group.title })}</ModalHeader>
+        <ModalHeader>
+          {t("dashboard:edit-group-name", { name: title })}
+        </ModalHeader>
         <ModalCloseButton />
 
         <ModalBody pb="4">
-          <EditGroupForm group={group} />
+          <GroupForm
+            defaultValues={defaultValues}
+            submitText={t("common:edit")}
+            submit={handleSubmit}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>
