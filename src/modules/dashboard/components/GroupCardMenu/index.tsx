@@ -17,18 +17,27 @@ import { useTranslation } from "react-i18next";
 import { Group } from "modules/dashboard/types";
 import AwesomeIcon from "components/AwesomeIcon";
 import DeleteModal from "components/DeleteModal";
+import EditGroupModal from "../EditGroupModal";
 
 type GroupCardMenuProps = {
   group: Group;
 };
 
-const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
+const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
+  const { title } = group;
+
   const { t } = useTranslation(["dashboard", "common"]);
 
   const {
     isOpen: isDeleteModalOpen,
     onOpen: openDeleteModal,
     onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const {
+    isOpen: isEditModalOpen,
+    onOpen: openEditModal,
+    onClose: closeEditModal,
   } = useDisclosure();
 
   const deleteGroup = () => {
@@ -46,7 +55,9 @@ const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
       />
       <Portal>
         <MenuList minW="160px">
-          <MenuItem icon={<AwesomeIcon icon={faEdit} />}>
+          <MenuItem
+            icon={<AwesomeIcon icon={faEdit} />}
+            onClick={openEditModal}>
             {t("common:edit")}
           </MenuItem>
           <MenuItem
@@ -58,13 +69,23 @@ const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
         </MenuList>
       </Portal>
 
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        infoText={t("dashboard:remove-group-confirm", { name })}
-        handleClose={closeDeleteModal}
-        handleConfirm={deleteGroup}
-        name={name}
-      />
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          infoText={t("dashboard:remove-group-confirm", { name: title })}
+          handleClose={closeDeleteModal}
+          handleConfirm={deleteGroup}
+          name={title}
+        />
+      )}
+
+      {isEditModalOpen && (
+        <EditGroupModal
+          isOpen={isEditModalOpen}
+          handleClose={closeEditModal}
+          group={group}
+        />
+      )}
     </Menu>
   );
 };

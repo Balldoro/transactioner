@@ -10,9 +10,12 @@ import {
 const data = [
   {
     id: 1,
-    name: "Styczeń",
+    title: "Styczeń",
     description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-    icon: snowman,
+    category: {
+      src: snowman,
+      name: "winter",
+    },
     currency: "PLN",
     users: [
       {
@@ -29,10 +32,13 @@ const data = [
   },
   {
     id: 2,
-    name: "Wycieczka",
+    title: "Wycieczka",
     description: "lorem ipsum dolor si",
-    icon: travel,
-    currency: "EUR",
+    category: {
+      src: travel,
+      name: "travel",
+    },
+    currency: "PLN",
     users: [
       {
         nickname: "Tomek",
@@ -48,9 +54,12 @@ const data = [
   },
   {
     id: 3,
-    name: "Mieszkanie",
+    title: "Mieszkanie",
     description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-    icon: house,
+    category: {
+      src: house,
+      name: "home",
+    },
     currency: "PLN",
     users: [
       {
@@ -67,9 +76,12 @@ const data = [
   },
   {
     id: 4,
-    name: "Wakacje",
+    title: "Wakacje",
     description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-    icon: summerHolidays,
+    category: {
+      src: summerHolidays,
+      name: "holidays",
+    },
     currency: "PLN",
     users: [
       {
@@ -86,9 +98,12 @@ const data = [
   },
   {
     id: 5,
-    name: "Impreza",
+    title: "Impreza",
     description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-    icon: partyTime,
+    category: {
+      src: partyTime,
+      name: "party",
+    },
     currency: "PLN",
     users: [
       {
@@ -105,9 +120,12 @@ const data = [
   },
   {
     id: 6,
-    name: "Remont",
+    title: "Remont",
     description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-    icon: renovation,
+    category: {
+      src: renovation,
+      name: "renovation",
+    },
     currency: "PLN",
     users: [
       {

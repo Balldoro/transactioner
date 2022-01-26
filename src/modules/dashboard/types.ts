@@ -1,9 +1,9 @@
 export type Group = {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  icon: string;
-  currency: string;
+  category: Category;
+  currency: Currency;
   users: User[];
 };
 
@@ -19,7 +19,7 @@ export type Category = {
   src: string;
 };
 
-export type NewGroupFormValues = {
+export type GroupFormValues = {
   category: string;
   title: string;
   description?: string;

@@ -6,88 +6,51 @@ import {
   Input,
   Select,
   SimpleGrid,
-  useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useForm, Controller, useController } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
-import { Category, NewGroupFormValues, User } from "modules/dashboard/types";
+import { GroupFormValues } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
+import useGroupForm from "modules/dashboard/hooks/useGroupForm";
 import ControlWrapper from "components/Inputs/ControlWrapper";
-import CategoryIconRadio from "../CategoryIconRadio";
-import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
-import { isYupRequired } from "utils/isYupRequired";
-import { RoutePaths } from "routes/RoutePaths";
-import { getFriends, getCategories } from "modules/dashboard/api";
 import LoadingSpinner from "components/LoadingSpinner";
+import CategoryIconRadio from "../CategoryIconRadio";
 
-const defaultValues: NewGroupFormValues = {
-  category: "",
-  title: "",
-  description: "",
-  currency: "PLN",
-  friends: [],
+type GroupFormProps = {
+  defaultValues: GroupFormValues;
+  submitText: string;
+  submit: SubmitHandler<GroupFormValues>;
 };
 
-const isFieldRequired = (field: keyof NewGroupFormValues) =>
-  isYupRequired(newGroupScheme, field);
-
-const NewGroupForm = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    control,
-  } = useForm<NewGroupFormValues>({
-    defaultValues,
-    resolver: yupResolver(newGroupScheme),
-  });
-
-  const navigate = useNavigate();
+const GroupForm = ({ defaultValues, submitText, submit }: GroupFormProps) => {
   const { t } = useTranslation(["dashboard", "common"]);
   const { user } = useAuthContext();
-  const { field } = useController({ control, name: "category" });
-  const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
-  const [friends, setFriends] = useState<User[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    isLoading,
+    friends,
+    categories,
+    formMethods,
+    isFieldRequired,
+    getRadioProps,
+    getRootProps,
+  } = useGroupForm(defaultValues);
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      const friends = await getFriends();
-      setFriends(friends);
-    };
-
-    const fetchCategories = async () => {
-      const categories = await getCategories();
-      setCategories(categories);
-    };
-
-    const fetchData = async () => {
-      setIsLoading(true);
-      await fetchFriends();
-      await fetchCategories();
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  const submit = handleSubmit(data => {
-    navigate(`${RoutePaths.GROUP}/${data.title}`);
-  });
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    control,
+  } = formMethods;
 
   if (isLoading) {
     return <LoadingSpinner size="lg" isCentered />;
   }
 
   return (
-    <form onSubmit={submit} noValidate>
+    <form onSubmit={handleSubmit(submit)} noValidate>
       <VStack spacing="4" align="flex-start">
         <ControlWrapper
           isRequired={isFieldRequired("category")}
@@ -159,10 +122,10 @@ const NewGroupForm = () => {
         </ControlWrapper>
 
         <Button type="submit" colorScheme="blue" isFullWidth>
-          {t("common:create")}
+          {submitText}
         </Button>
       </VStack>
     </form>
   );
 };
-export default NewGroupForm;
+export default GroupForm;
