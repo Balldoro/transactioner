@@ -1,15 +1,16 @@
+import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useOutsideClick } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import {
   faIdCard,
   faColumns,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
+import SidebarItem from "./SidebarItem";
 import { RoutePaths } from "routes/RoutePaths";
 import { HEADER_HEIGHT_LARGE, HEADER_HEIGHT_SMALL } from "../HEADER_HEIGHT";
-import SidebarItem from "./SidebarItem";
-import { useTranslation } from "react-i18next";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -17,8 +18,11 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   const { pathname } = useLocation();
   const { t } = useTranslation("layout");
+  useOutsideClick({ ref, handler: closeSidebarFromLink });
 
   const items = [
     { icon: faColumns, path: RoutePaths.DASHBOARD, title: t("dashboard") },
@@ -33,6 +37,7 @@ const Sidebar = ({ isOpen, closeSidebarFromLink }: SidebarProps) => {
   return (
     <Box
       as="aside"
+      ref={ref}
       position={{ base: "fixed", md: "sticky" }}
       zIndex="2"
       bg="white"
