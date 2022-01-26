@@ -112,7 +112,7 @@ const NewGroupForm = () => {
           isRequired={isFieldRequired("title")}
           label={t("dashboard:title")}
           error={errors.title?.message}>
-          <Input {...register("title")} />
+          <Input {...register("title")} autoFocus />
         </ControlWrapper>
 
         <ControlWrapper
