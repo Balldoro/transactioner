@@ -1,9 +1,9 @@
 export type Group = {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  icon: string;
-  currency: string;
+  category: Category;
+  currency: Currency;
   users: User[];
 };
 

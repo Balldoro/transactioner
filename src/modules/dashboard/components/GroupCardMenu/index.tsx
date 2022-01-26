@@ -22,7 +22,9 @@ type GroupCardMenuProps = {
   group: Group;
 };
 
-const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
+const GroupCardMenu = ({ group }: GroupCardMenuProps) => {
+  const { title } = group;
+
   const { t } = useTranslation(["dashboard", "common"]);
 
   const {
@@ -60,10 +62,10 @@ const GroupCardMenu = ({ group: { name } }: GroupCardMenuProps) => {
 
       <DeleteModal
         isOpen={isDeleteModalOpen}
-        infoText={t("dashboard:remove-group-confirm", { name })}
+        infoText={t("dashboard:remove-group-confirm", { name: title })}
         handleClose={closeDeleteModal}
         handleConfirm={deleteGroup}
-        name={name}
+        name={title}
       />
     </Menu>
   );

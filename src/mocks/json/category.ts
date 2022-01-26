@@ -2,9 +2,12 @@ import { house, restaurant, shoppingBags, medical } from "assets/images";
 
 const data = {
   id: 3,
-  name: "Mieszkanie",
+  title: "Mieszkanie",
   description: "lorem ipsum dolor sit amet quebo na fide oraz taco hemingway",
-  icon: house,
+  category: {
+    src: house,
+    name: "home",
+  },
   currency: "PLN",
   users: [
     {

@@ -19,18 +19,18 @@ type GroupCardProps = Group;
 
 const GroupCard = (group: GroupCardProps) => {
   const { t } = useTranslation("dashboard");
-  const { name, icon, description, users, id } = group;
+  const { title, category, description, users, id } = group;
 
   return (
     <Flex
       as="section"
       direction="column"
-      key={name}
+      key={title}
       borderRadius="lg"
       p="4"
       bg="white">
       <Flex justify="space-between">
-        <Image src={icon} boxSize="32px" alt={t("group-icon")} />
+        <Image src={category.src} boxSize="32px" alt={t("group-icon")} />
         <GroupCardMenu group={group} />
       </Flex>
       <VStack
@@ -41,7 +41,7 @@ const GroupCard = (group: GroupCardProps) => {
         justify="space-between">
         <VStack spacing="4" align="flex-start">
           <Heading fontSize="2xl" fontWeight="normal">
-            {name}
+            {title}
           </Heading>
           <Text color="gray.600">{description}</Text>
         </VStack>
