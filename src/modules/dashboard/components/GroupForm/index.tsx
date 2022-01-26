@@ -6,26 +6,16 @@ import {
   Input,
   Select,
   SimpleGrid,
-  useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
-import {
-  useForm,
-  Controller,
-  useController,
-  SubmitHandler,
-} from "react-hook-form";
-import { useEffect, useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { Category, GroupFormValues, User } from "modules/dashboard/types";
+import { GroupFormValues } from "modules/dashboard/types";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
-import newGroupScheme from "modules/dashboard/schemas/newGroupScheme";
-import { getFriends, getCategories } from "modules/dashboard/api";
+import useGroupForm from "modules/dashboard/hooks/useGroupForm";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import LoadingSpinner from "components/LoadingSpinner";
-import { isYupRequired } from "utils/isYupRequired";
 import CategoryIconRadio from "../CategoryIconRadio";
 
 type GroupFormProps = {
@@ -34,49 +24,26 @@ type GroupFormProps = {
   submit: SubmitHandler<GroupFormValues>;
 };
 
-const isFieldRequired = (field: keyof GroupFormValues) =>
-  isYupRequired(newGroupScheme, field);
-
 const GroupForm = ({ defaultValues, submitText, submit }: GroupFormProps) => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    control,
-  } = useForm<GroupFormValues>({
-    defaultValues,
-    resolver: yupResolver(newGroupScheme),
-  });
-
   const { t } = useTranslation(["dashboard", "common"]);
   const { user } = useAuthContext();
-  const { field } = useController({ control, name: "category" });
-  const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
-  const [friends, setFriends] = useState<User[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    isLoading,
+    friends,
+    categories,
+    formMethods,
+    isFieldRequired,
+    getRadioProps,
+    getRootProps,
+  } = useGroupForm(defaultValues);
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      const friends = await getFriends();
-      setFriends(friends);
-    };
-
-    const fetchCategories = async () => {
-      const categories = await getCategories();
-      setCategories(categories);
-    };
-
-    const fetchData = async () => {
-      setIsLoading(true);
-      await fetchFriends();
-      await fetchCategories();
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, []);
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    control,
+  } = formMethods;
 
   if (isLoading) {
     return <LoadingSpinner size="lg" isCentered />;
