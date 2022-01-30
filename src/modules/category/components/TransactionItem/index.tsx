@@ -37,7 +37,7 @@ const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
       bg="white"
       borderRadius="lg">
       <Flex justify="space-between" align="center" width="100%">
-        <Image src={category.picture} boxSize="32px" />
+        <Image src={category.picture} boxSize="32px" alt={category.name} />
         <IconButton
           variant="unstyled"
           size="sm"
