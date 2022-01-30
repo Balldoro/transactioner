@@ -4,5 +4,6 @@
   "statistics": "Statystyki",
   "you-dont-have-transactions": "Nie masz jeszcze dodanych transakcji",
   "create-transaction": "Utwórz transakcję",
+  "create-new-transaction": "Utwórz nową transakcję",
   "remove-transaction-confirm": "Na pewno chcesz usunąć transakcję \"{{name}}\"?"
 }
