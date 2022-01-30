@@ -47,7 +47,12 @@ const CategoryOverview = () => {
   return (
     <Flex direction="column">
       <VStack spacing="4" align="flex-start" width="100%">
-        <Image src={groupInfo.category.src} mr="4" />
+        <Image
+          src={groupInfo.category.src}
+          alt={groupInfo.category.name}
+          boxSize="64px"
+          mr="4"
+        />
         <Heading>{groupInfo.title}</Heading>
 
         <Tabs width="100%">
