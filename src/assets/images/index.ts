@@ -8,3 +8,7 @@ export { default as travel } from "./travel.png";
 export { default as medical } from "./medical.png";
 export { default as restaurant } from "./restaurant.png";
 export { default as shoppingBags } from "./shopping-bags.png";
+export { default as transport } from "./transportation.png";
+export { default as car } from "./vehicle.png";
+export { default as fun } from "./puzzle.png";
+export { default as other } from "./box.png";

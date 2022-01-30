@@ -3,6 +3,7 @@ import category_JSON from "./json/category";
 import categories_JSON from "./json/categories";
 import friends_JSON from "./json/friends";
 import groups_JSON from "./json/groups";
+import transactionGroups_JSON from "./json/transactionCategories";
 
 const DELAY = 500;
 
@@ -21,5 +22,9 @@ export const handlers = [
 
   rest.get("/groups", (_, res, ctx) =>
     res(ctx.status(200), ctx.json(groups_JSON), ctx.delay(DELAY))
+  ),
+
+  rest.get("/transaction-groups", (_, res, ctx) =>
+    res(ctx.status(200), ctx.json(transactionGroups_JSON), ctx.delay(DELAY))
   ),
 ];
