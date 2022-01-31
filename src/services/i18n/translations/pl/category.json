@@ -11,6 +11,8 @@
   "title": "Tytuł",
   "amount": "Kwota",
   "date": "Data",
+  "payed-by": "Zapłacone przez",
+  "for": "Dla:",
 
   "category-restaurants": "Restauracje",
   "category-medical": "Zdrowie",

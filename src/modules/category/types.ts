@@ -25,7 +25,8 @@ export type NewTransactionFormValues = {
   title: string;
   amount: string;
   date: Date;
-  friends: string[];
+  payedBy: string;
+  involvedUsers: string[];
 };
 
 export type Category = {

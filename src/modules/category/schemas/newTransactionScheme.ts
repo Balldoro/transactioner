@@ -7,7 +7,8 @@ const newTransactionScheme = yup
     title: yup.string().required(REQUIRED_MESSAGE).trim(),
     date: yup.date().required(REQUIRED_MESSAGE),
     amount: yup.string().required(REQUIRED_MESSAGE).trim(),
-    friends: yup.array().of(yup.string()),
+    payedBy: yup.string().required(REQUIRED_MESSAGE),
+    involvedUsers: yup.array().of(yup.string()),
   })
   .required();
 

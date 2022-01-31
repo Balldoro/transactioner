@@ -11,6 +11,8 @@
   "title": "Title",
   "amount": "Amount",
   "date": "Date",
+  "payed-by": "Payed by",
+  "for": "For:",
 
   "category-restaurants": "Restaurants",
   "category-medical": "Health",

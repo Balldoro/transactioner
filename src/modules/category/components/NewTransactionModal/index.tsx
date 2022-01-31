@@ -6,6 +6,8 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
+import { NewTransactionFormValues } from "modules/category/types";
+import { SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import NewTransactionForm from "../NewTransactionForm";
@@ -21,6 +23,10 @@ const NewTransactionModal = ({
 }: NewTransactionModalProps) => {
   const { t } = useTranslation("category");
 
+  const handleSubmit: SubmitHandler<NewTransactionFormValues> = data => {
+    handleClose();
+  };
+
   return (
     <Modal
       onClose={handleClose}
@@ -33,7 +39,7 @@ const NewTransactionModal = ({
         <ModalCloseButton />
 
         <ModalBody pb="4">
-          <NewTransactionForm />
+          <NewTransactionForm submit={handleSubmit} currency="PLN" />
         </ModalBody>
       </ModalContent>
     </Modal>

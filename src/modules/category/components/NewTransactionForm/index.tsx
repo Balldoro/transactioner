@@ -4,31 +4,46 @@ import {
   Checkbox,
   CheckboxGroup,
   Input,
+  InputGroup,
+  InputRightAddon,
+  NumberInput,
+  NumberInputField,
+  Select,
   SimpleGrid,
   VStack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Controller, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { Currency } from "modules/dashboard/types";
+import { NewTransactionFormValues } from "modules/category/types";
+import useNewTransaction from "modules/category/hooks/useNewTransaction";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
-import useNewTransaction from "modules/category/hooks/useNewTransaction";
 import CategoryIconRadio from "components/CategoryIconRadio";
 import LoadingSpinner from "components/LoadingSpinner";
-import { NewTransactionFormValues } from "modules/category/types";
 import DateInput from "components/Inputs/DateInput";
 
-const defaultValues = {
-  category: "",
-  title: "",
-  date: new Date(),
-  amount: "",
-  friends: [],
+type NewTransactionFormProps = {
+  submit: SubmitHandler<NewTransactionFormValues>;
+  currency: Currency;
 };
 
-const NewTransactionForm = () => {
+const NewTransactionForm = ({ currency, submit }: NewTransactionFormProps) => {
   const { t } = useTranslation(["category", "common"]);
   const { user } = useAuthContext();
+
+  const userNickname = user?.nickname as string;
+
+  const defaultValues: NewTransactionFormValues = {
+    category: "",
+    title: "",
+    date: new Date(),
+    amount: "",
+    payedBy: userNickname,
+    involvedUsers: [],
+  };
 
   const {
     formMethods,
@@ -44,16 +59,25 @@ const NewTransactionForm = () => {
     handleSubmit,
     register,
     control,
+    setValue,
+    watch,
     formState: { errors },
   } = formMethods;
+
+  const watchPayedBy = watch("payedBy");
+
+  useEffect(() => {
+    const setPayingUserAsInvolved = () => {
+      const watchInvolvedUsers = watch("involvedUsers");
+      setValue("involvedUsers", [...watchInvolvedUsers, watchPayedBy]);
+    };
+
+    setPayingUserAsInvolved();
+  }, [watch, watchPayedBy, setValue]);
 
   if (isLoading) {
     return <LoadingSpinner size="lg" isCentered />;
   }
-
-  const submit: SubmitHandler<NewTransactionFormValues> = data => {
-    console.log(data);
-  };
 
   return (
     <form onSubmit={handleSubmit(submit)} noValidate>
@@ -90,7 +114,12 @@ const NewTransactionForm = () => {
           isRequired={isFieldRequired("amount")}
           label={t("category:amount")}
           error={errors.amount?.message}>
-          <Input {...register("amount")} type="number" />
+          <NumberInput w="100%" precision={2}>
+            <InputGroup>
+              <NumberInputField {...register("amount")} borderRightRadius="0" />
+              <InputRightAddon children={currency} />
+            </InputGroup>
+          </NumberInput>
         </ControlWrapper>
 
         <ControlWrapper
@@ -112,22 +141,49 @@ const NewTransactionForm = () => {
         </ControlWrapper>
 
         <ControlWrapper
-          isRequired={isFieldRequired("friends")}
-          label={t("common:friends")}>
+          isRequired={isFieldRequired("payedBy")}
+          label={t("category:payed-by")}
+          error={errors.payedBy?.message}>
+          <Select {...register("payedBy")}>
+            <option value={userNickname}>{userNickname}</option>
+            {friends.map(({ nickname }) => (
+              <option key={nickname} value={nickname}>
+                {nickname}
+              </option>
+            ))}
+          </Select>
+        </ControlWrapper>
+
+        <ControlWrapper
+          isRequired={isFieldRequired("involvedUsers")}
+          label={t("category:for")}>
           <VStack spacing="4" align="flex-start">
-            <Checkbox isDisabled defaultChecked>
-              <Avatar size="xs" src={user?.picture} mr="2" />
-              {user?.nickname} (You)
-            </Checkbox>
+            <Controller
+              control={control}
+              name="involvedUsers"
+              render={({ field: { ref, ...rest } }) => (
+                <CheckboxGroup {...rest}>
+                  <Checkbox
+                    isDisabled={watchPayedBy === userNickname}
+                    value={userNickname}>
+                    <Avatar size="xs" src={user?.picture} mr="2" />
+                    {user?.nickname} (You)
+                  </Checkbox>
+                </CheckboxGroup>
+              )}
+            />
 
             {friends.map(({ nickname, picture }) => (
               <Controller
                 key={nickname}
                 control={control}
-                name="friends"
+                name="involvedUsers"
                 render={({ field: { ref, ...rest } }) => (
                   <CheckboxGroup {...rest}>
-                    <Checkbox value={nickname} textTransform="capitalize">
+                    <Checkbox
+                      isDisabled={watchPayedBy === nickname}
+                      value={nickname}
+                      textTransform="capitalize">
                       <Avatar size="xs" src={picture} mr="2" />
                       {nickname}
                     </Checkbox>
