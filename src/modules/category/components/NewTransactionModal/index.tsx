@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
+import NewTransactionForm from "../NewTransactionForm";
+
 type NewTransactionModalProps = {
   isOpen: boolean;
   handleClose: () => void;
@@ -30,7 +32,9 @@ const NewTransactionModal = ({
         <ModalHeader>{t("create-new-transaction")}</ModalHeader>
         <ModalCloseButton />
 
-        <ModalBody pb="4"></ModalBody>
+        <ModalBody pb="4">
+          <NewTransactionForm />
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

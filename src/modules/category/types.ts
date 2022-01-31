@@ -19,3 +19,16 @@ type TransactionCategory = {
 export type FullGroup = Group & {
   transactions: Transaction[];
 };
+
+export type NewTransactionFormValues = {
+  category: string;
+  title: string;
+  amount: string;
+  date: string;
+  friends: string[];
+};
+
+export type Category = {
+  name: string;
+  src: string;
+};

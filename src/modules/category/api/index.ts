@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Category } from "../types";
 
 export const getGroupInfo = async () => {
   const { data } = await axios.get("/categories/1");
@@ -6,6 +7,6 @@ export const getGroupInfo = async () => {
 };
 
 export const getTransactionCategories = async () => {
-  const { data } = await axios.get("/transaction-groups");
+  const { data } = await axios.get<Category[]>("/transaction-groups");
   return data;
 };
