@@ -12,5 +12,12 @@
   "title": "Title",
   "description": "Description",
 
-  "remove-group-confirm": "Are you sure that you want to permamently delete \"{{name}}\" group?"
+  "remove-group-confirm": "Are you sure that you want to permamently delete \"{{name}}\" group?",
+
+  "category-winter": "Winter",
+  "category-renovation": "Renovation",
+  "category-holidays": "Holidays",
+  "category-party": "Party",
+  "category-travel": "Travel",
+  "category-home": "Home"
 }

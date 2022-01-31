@@ -1,9 +1,17 @@
-import { Box, Button, Flex, Heading, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
 import { FullGroup } from "modules/category/types";
 import EmptyTransactions from "../EmptyTransactions";
 import TransactionItem from "../TransactionItem";
+import NewTransactionModal from "../NewTransactionModal";
 
 type TransactionsProps = {
   group: FullGroup;
@@ -11,6 +19,12 @@ type TransactionsProps = {
 
 const Transactions = ({ group }: TransactionsProps) => {
   const { t } = useTranslation("category");
+
+  const {
+    isOpen: isNewTransactionModalOpen,
+    onOpen: openNewTransactionModal,
+    onClose: closeNewTransactionModal,
+  } = useDisclosure();
 
   return (
     <Box overflowX="auto" width={{ sm: "100%", lg: "45%" }}>
@@ -26,7 +40,9 @@ const Transactions = ({ group }: TransactionsProps) => {
             mb={{ base: "4", md: "0" }}>
             {t("transactions")}
           </Heading>
-          <Button colorScheme="blue">{t("create-transaction")}</Button>
+          <Button colorScheme="blue" onClick={openNewTransactionModal}>
+            {t("create-transaction")}
+          </Button>
         </Flex>
 
         {group.transactions.length === 0 ? (
@@ -41,6 +57,13 @@ const Transactions = ({ group }: TransactionsProps) => {
           ))
         )}
       </VStack>
+
+      {isNewTransactionModalOpen && (
+        <NewTransactionModal
+          isOpen={isNewTransactionModalOpen}
+          handleClose={closeNewTransactionModal}
+        />
+      )}
     </Box>
   );
 };

@@ -1,0 +1,15 @@
+import { REQUIRED_MESSAGE } from "utils/validationMessages";
+import * as yup from "yup";
+
+const newTransactionScheme = yup
+  .object({
+    category: yup.string().required(REQUIRED_MESSAGE).trim(),
+    title: yup.string().required(REQUIRED_MESSAGE).trim(),
+    date: yup.date().required(REQUIRED_MESSAGE),
+    amount: yup.string().required(REQUIRED_MESSAGE).trim(),
+    payedBy: yup.string().required(REQUIRED_MESSAGE),
+    involvedUsers: yup.array().of(yup.string()),
+  })
+  .required();
+
+export default newTransactionScheme;

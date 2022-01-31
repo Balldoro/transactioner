@@ -11,5 +11,12 @@
   "title": "Tytuł",
   "description": "Opis",
 
-  "remove-group-confirm": "Na pewno chcesz permanentnie usunąć grupę \"{{name}}\"?"
+  "remove-group-confirm": "Na pewno chcesz permanentnie usunąć grupę \"{{name}}\"?",
+
+  "category-winter": "Zima",
+  "category-renovation": "Remont",
+  "category-holidays": "Wakacje",
+  "category-party": "Impreza",
+  "category-travel": "Wycieczka",
+  "category-home": "Mieszkanie"
 }

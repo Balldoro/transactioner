@@ -4,5 +4,21 @@
   "statistics": "Statistics",
   "you-dont-have-transactions": "You don't have any transactions yet!",
   "create-transaction": "Create transaction",
-  "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?"
+  "create-new-transaction": "Create new transaction",
+  "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?",
+
+  "category": "Category",
+  "title": "Title",
+  "amount": "Amount",
+  "date": "Date",
+  "payed-by": "Payed by",
+  "for": "For:",
+
+  "category-restaurants": "Restaurants",
+  "category-medical": "Health",
+  "category-shops": "Shopping",
+  "category-car": "Car",
+  "category-transport": "Transport",
+  "category-fun": "Games",
+  "category-other": "Other"
 }

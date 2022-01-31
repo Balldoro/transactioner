@@ -16,7 +16,7 @@ import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import useGroupForm from "modules/dashboard/hooks/useGroupForm";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import LoadingSpinner from "components/LoadingSpinner";
-import CategoryIconRadio from "../CategoryIconRadio";
+import CategoryIconRadio from "components/CategoryIconRadio";
 
 type GroupFormProps = {
   defaultValues: GroupFormValues;
@@ -66,6 +66,8 @@ const GroupForm = ({ defaultValues, submitText, submit }: GroupFormProps) => {
                 key={name}
                 radioProps={getRadioProps({ value: name })}
                 src={src}
+                /* @ts-ignore */
+                label={t(`dashboard:category-${name}`)}
               />
             ))}
           </SimpleGrid>
