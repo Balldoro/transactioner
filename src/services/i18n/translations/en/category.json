@@ -5,5 +5,17 @@
   "you-dont-have-transactions": "You don't have any transactions yet!",
   "create-transaction": "Create transaction",
   "create-new-transaction": "Create new transaction",
-  "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?"
+  "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?",
+
+  "category": "Category",
+  "title": "Title",
+  "amount": "Amount",
+
+  "category-restaurants": "Restaurants",
+  "category-medical": "Helath",
+  "category-shops": "Shopping",
+  "category-car": "Car",
+  "category-transport": "Transport",
+  "category-fun": "Games",
+  "category-other": "Other"
 }
