@@ -5,7 +5,7 @@ const newTransactionScheme = yup
   .object({
     category: yup.string().required(REQUIRED_MESSAGE).trim(),
     title: yup.string().required(REQUIRED_MESSAGE).trim(),
-    date: yup.string(),
+    date: yup.date().required(REQUIRED_MESSAGE),
     amount: yup.string().required(REQUIRED_MESSAGE).trim(),
     friends: yup.array().of(yup.string()),
   })

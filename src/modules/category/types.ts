@@ -24,7 +24,7 @@ export type NewTransactionFormValues = {
   category: string;
   title: string;
   amount: string;
-  date: string;
+  date: Date;
   friends: string[];
 };
 

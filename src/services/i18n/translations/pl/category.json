@@ -10,6 +10,7 @@
   "category": "Kategoria",
   "title": "Tytuł",
   "amount": "Kwota",
+  "date": "Data",
 
   "category-restaurants": "Restauracje",
   "category-medical": "Zdrowie",

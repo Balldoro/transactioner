@@ -10,9 +10,10 @@
   "category": "Category",
   "title": "Title",
   "amount": "Amount",
+  "date": "Date",
 
   "category-restaurants": "Restaurants",
-  "category-medical": "Helath",
+  "category-medical": "Health",
   "category-shops": "Shopping",
   "category-car": "Car",
   "category-transport": "Transport",

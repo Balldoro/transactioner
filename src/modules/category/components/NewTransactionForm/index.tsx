@@ -16,11 +16,12 @@ import useNewTransaction from "modules/category/hooks/useNewTransaction";
 import CategoryIconRadio from "components/CategoryIconRadio";
 import LoadingSpinner from "components/LoadingSpinner";
 import { NewTransactionFormValues } from "modules/category/types";
+import DateInput from "components/Inputs/DateInput";
 
 const defaultValues = {
   category: "",
   title: "",
-  date: "",
+  date: new Date(),
   amount: "",
   friends: [],
 };
@@ -90,6 +91,24 @@ const NewTransactionForm = () => {
           label={t("category:amount")}
           error={errors.amount?.message}>
           <Input {...register("amount")} type="number" />
+        </ControlWrapper>
+
+        <ControlWrapper
+          isRequired={isFieldRequired("date")}
+          label={t("category:date")}
+          error={errors.date?.message}>
+          <Controller
+            name="date"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <DateInput
+                isError={Boolean(errors.date?.message)}
+                selected={value}
+                onChange={onChange}
+              />
+            )}
+          />
         </ControlWrapper>
 
         <ControlWrapper
