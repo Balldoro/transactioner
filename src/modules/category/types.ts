@@ -21,7 +21,7 @@ export type FullGroup = Group & {
   transactions: Transaction[];
 };
 
-export type NewTransactionFormValues = {
+export type TransactionFormValues = {
   category: string;
   title: string;
   amount: string;

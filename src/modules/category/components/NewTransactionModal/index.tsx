@@ -6,11 +6,11 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useAuthContext } from "modules/auth/contexts/AuthContext";
-import { NewTransactionFormValues } from "modules/category/types";
 import { SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { useAuthContext } from "modules/auth/contexts/AuthContext";
+import { TransactionFormValues } from "modules/category/types";
 import TransactionForm from "modules/category/components/TransactionForm";
 
 type NewTransactionModalProps = {
@@ -27,7 +27,7 @@ const NewTransactionModal = ({
 
   const userNickname = user?.nickname as string;
 
-  const defaultValues: NewTransactionFormValues = {
+  const defaultValues: TransactionFormValues = {
     category: "",
     title: "",
     date: new Date(),
@@ -36,7 +36,7 @@ const NewTransactionModal = ({
     involvedUsers: [],
   };
 
-  const handleSubmit: SubmitHandler<NewTransactionFormValues> = data => {
+  const handleSubmit: SubmitHandler<TransactionFormValues> = data => {
     handleClose();
   };
 
