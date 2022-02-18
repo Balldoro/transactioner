@@ -1,7 +1,7 @@
 import { REQUIRED_MESSAGE } from "utils/validationMessages";
 import * as yup from "yup";
 
-const newTransactionScheme = yup
+const transactionScheme = yup
   .object({
     category: yup.string().required(REQUIRED_MESSAGE).trim(),
     title: yup.string().required(REQUIRED_MESSAGE).trim(),
@@ -12,4 +12,4 @@ const newTransactionScheme = yup
   })
   .required();
 
-export default newTransactionScheme;
+export default transactionScheme;

@@ -17,8 +17,8 @@ import { Controller, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { Currency } from "modules/dashboard/types";
-import { NewTransactionFormValues } from "modules/category/types";
-import useNewTransaction from "modules/category/hooks/useNewTransaction";
+import { TransactionFormValues } from "modules/category/types";
+import useTransaction from "modules/category/hooks/useTransaction";
 import { useAuthContext } from "modules/auth/contexts/AuthContext";
 import ControlWrapper from "components/Inputs/ControlWrapper";
 import CategoryIconRadio from "components/CategoryIconRadio";
@@ -26,10 +26,10 @@ import LoadingSpinner from "components/LoadingSpinner";
 import DateInput from "components/Inputs/DateInput";
 
 type TransactionFormProps = {
-  defaultValues: NewTransactionFormValues;
+  defaultValues: TransactionFormValues;
   submitText: string;
   currency: Currency;
-  submit: SubmitHandler<NewTransactionFormValues>;
+  submit: SubmitHandler<TransactionFormValues>;
 };
 
 const TransactionForm = ({
@@ -51,7 +51,7 @@ const TransactionForm = ({
     categories,
     getRadioProps,
     getRootProps,
-  } = useNewTransaction(defaultValues);
+  } = useTransaction(defaultValues);
 
   const {
     handleSubmit,

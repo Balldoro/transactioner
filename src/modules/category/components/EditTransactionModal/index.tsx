@@ -9,7 +9,7 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { NewTransactionFormValues, Transaction } from "modules/category/types";
+import { TransactionFormValues, Transaction } from "modules/category/types";
 import TransactionForm from "modules/category/components/TransactionForm";
 
 type EditTransactionModalProps = {
@@ -25,7 +25,7 @@ const EditTransactionModal = ({
 }: EditTransactionModalProps) => {
   const { t } = useTranslation("category");
 
-  const defaultValues: NewTransactionFormValues = {
+  const defaultValues: TransactionFormValues = {
     category: category.value,
     title: name,
     date: new Date(date),
@@ -34,7 +34,7 @@ const EditTransactionModal = ({
     involvedUsers: involvedUsers.map(({ nickname }) => nickname),
   };
 
-  const handleSubmit: SubmitHandler<NewTransactionFormValues> = data => {
+  const handleSubmit: SubmitHandler<TransactionFormValues> = data => {
     handleClose();
   };
 

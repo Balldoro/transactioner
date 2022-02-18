@@ -4,16 +4,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useController, useForm } from "react-hook-form";
 
 import { getTransactionCategories } from "../api";
-import { Category, NewTransactionFormValues } from "../types";
-import newTransactionScheme from "../schemas/newTransactionScheme";
+import { Category, TransactionFormValues } from "../types";
+import transactionScheme from "../schemas/transactionScheme";
 import { getFriends } from "modules/dashboard/api";
 import { User } from "modules/dashboard/types";
 import { isYupRequired } from "utils/isYupRequired";
 
-const useNewTransaction = (defaultValues: NewTransactionFormValues) => {
-  const formMethods = useForm<NewTransactionFormValues>({
+const useTransaction = (defaultValues: TransactionFormValues) => {
+  const formMethods = useForm<TransactionFormValues>({
     defaultValues,
-    resolver: yupResolver(newTransactionScheme),
+    resolver: yupResolver(transactionScheme),
   });
 
   const { field } = useController({
@@ -48,8 +48,8 @@ const useNewTransaction = (defaultValues: NewTransactionFormValues) => {
     fetchData();
   }, []);
 
-  const isFieldRequired = (field: keyof NewTransactionFormValues) =>
-    isYupRequired(newTransactionScheme, field);
+  const isFieldRequired = (field: keyof TransactionFormValues) =>
+    isYupRequired(transactionScheme, field);
 
   return {
     friends,
@@ -61,4 +61,4 @@ const useNewTransaction = (defaultValues: NewTransactionFormValues) => {
     getRadioProps,
   };
 };
-export default useNewTransaction;
+export default useTransaction;
