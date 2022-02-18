@@ -7,6 +7,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
 
 import AwesomeIcon from "components/AwesomeIcon";
 import { Transaction } from "modules/category/types";
@@ -66,7 +67,7 @@ const TransactionItem = ({ transaction, currency }: TransactionItemProps) => {
             {amount.toFixed(2)} {currency}
           </Text>
           <Text textAlign="right" fontSize="sm" color="gray.500">
-            {date}
+            {format(new Date(date), "dd-MM-yyyy")}
           </Text>
         </Flex>
       </Flex>
