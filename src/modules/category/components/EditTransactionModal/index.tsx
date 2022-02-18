@@ -6,34 +6,32 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useAuthContext } from "modules/auth/contexts/AuthContext";
-import { NewTransactionFormValues } from "modules/category/types";
 import { SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { NewTransactionFormValues, Transaction } from "modules/category/types";
 import TransactionForm from "modules/category/components/TransactionForm";
 
-type NewTransactionModalProps = {
+type EditTransactionModalProps = {
   isOpen: boolean;
+  transaction: Transaction;
   handleClose: () => void;
 };
 
-const NewTransactionModal = ({
+const EditTransactionModal = ({
   isOpen,
+  transaction: { amount, category, date, name, involvedUsers, payedBy },
   handleClose,
-}: NewTransactionModalProps) => {
+}: EditTransactionModalProps) => {
   const { t } = useTranslation("category");
-  const { user } = useAuthContext();
-
-  const userNickname = user?.nickname as string;
 
   const defaultValues: NewTransactionFormValues = {
-    category: "",
-    title: "",
-    date: new Date(),
-    amount: "",
-    payedBy: userNickname,
-    involvedUsers: [],
+    category: category.value,
+    title: name,
+    date: new Date(date),
+    amount: String(amount),
+    payedBy: payedBy.nickname,
+    involvedUsers: involvedUsers.map(({ nickname }) => nickname),
   };
 
   const handleSubmit: SubmitHandler<NewTransactionFormValues> = data => {
@@ -48,7 +46,7 @@ const NewTransactionModal = ({
       scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t("create-new-transaction")}</ModalHeader>
+        <ModalHeader>{t("edit-transaction", { name })}</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody pb="4">
@@ -56,11 +54,11 @@ const NewTransactionModal = ({
             defaultValues={defaultValues}
             submit={handleSubmit}
             currency="PLN"
-            submitText="Utwórz"
+            submitText="Edytuj"
           />
         </ModalBody>
       </ModalContent>
     </Modal>
   );
 };
-export default NewTransactionModal;
+export default EditTransactionModal;

@@ -25,6 +25,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AwesomeIcon from "components/AwesomeIcon";
 import DeleteModal from "components/DeleteModal";
 import { Transaction } from "modules/category/types";
+import EditTransactionModal from "../EditTransactionModal";
 
 type TransactionDrawerProps = {
   transaction: Transaction;
@@ -47,6 +48,12 @@ const TransactionDrawer = ({
     isOpen: isDeleteModalOpen,
     onOpen: openDeleteModal,
     onClose: closeDeleteModal,
+  } = useDisclosure();
+
+  const {
+    isOpen: isEditModalOpen,
+    onOpen: openEditModal,
+    onClose: closeEditModal,
   } = useDisclosure();
 
   const deleteTransaction = () => {
@@ -85,7 +92,8 @@ const TransactionDrawer = ({
                 size="sm"
                 leftIcon={<AwesomeIcon icon={faEdit} />}
                 variant="outline"
-                colorScheme="blue">
+                colorScheme="blue"
+                onClick={openEditModal}>
                 {t("common:edit")}
               </Button>
               <Button
@@ -132,6 +140,12 @@ const TransactionDrawer = ({
         handleClose={closeDeleteModal}
         handleConfirm={deleteTransaction}
         name={name}
+      />
+
+      <EditTransactionModal
+        transaction={transaction}
+        handleClose={closeEditModal}
+        isOpen={isEditModalOpen}
       />
     </Drawer>
   );
