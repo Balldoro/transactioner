@@ -7,11 +7,12 @@ export type Transaction = {
   amount: number;
   date: string;
   isPayed: boolean;
-  addedBy: User;
+  payedBy: User;
   involvedUsers: User[];
 };
 
 type TransactionCategory = {
+  value: string;
   name: string;
   picture: string;
 };
