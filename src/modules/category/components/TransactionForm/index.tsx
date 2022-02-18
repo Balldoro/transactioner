@@ -25,25 +25,23 @@ import CategoryIconRadio from "components/CategoryIconRadio";
 import LoadingSpinner from "components/LoadingSpinner";
 import DateInput from "components/Inputs/DateInput";
 
-type NewTransactionFormProps = {
-  submit: SubmitHandler<NewTransactionFormValues>;
+type TransactionFormProps = {
+  defaultValues: NewTransactionFormValues;
+  submitText: string;
   currency: Currency;
+  submit: SubmitHandler<NewTransactionFormValues>;
 };
 
-const NewTransactionForm = ({ currency, submit }: NewTransactionFormProps) => {
+const TransactionForm = ({
+  defaultValues,
+  submitText,
+  currency,
+  submit,
+}: TransactionFormProps) => {
   const { t } = useTranslation(["category", "common"]);
   const { user } = useAuthContext();
 
   const userNickname = user?.nickname as string;
-
-  const defaultValues: NewTransactionFormValues = {
-    category: "",
-    title: "",
-    date: new Date(),
-    amount: "",
-    payedBy: userNickname,
-    involvedUsers: [],
-  };
 
   const {
     formMethods,
@@ -195,10 +193,11 @@ const NewTransactionForm = ({ currency, submit }: NewTransactionFormProps) => {
         </ControlWrapper>
 
         <Button type="submit" colorScheme="blue" isFullWidth>
-          Utwórz
+          {submitText}
         </Button>
       </VStack>
     </form>
   );
 };
-export default NewTransactionForm;
+
+export default TransactionForm;
