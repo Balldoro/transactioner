@@ -27,7 +27,7 @@ const EditTransactionModal = ({
 
   const defaultValues: TransactionFormValues = {
     category: category.value,
-    title: name,
+    name,
     date: new Date(date),
     amount: String(amount),
     payedBy: payedBy.nickname,

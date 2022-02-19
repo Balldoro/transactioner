@@ -9,7 +9,6 @@
   "remove-transaction-confirm": "Are you sure that you want to delete \"{{name}}\" transaction?",
 
   "category": "Category",
-  "title": "Title",
   "amount": "Amount",
   "date": "Date",
   "payed-by": "Payed by",
