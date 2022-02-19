@@ -29,7 +29,7 @@ const NewTransactionModal = ({
 
   const defaultValues: TransactionFormValues = {
     category: "",
-    title: "",
+    name: "",
     date: new Date(),
     amount: "",
     payedBy: userNickname,

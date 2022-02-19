@@ -102,10 +102,10 @@ const TransactionForm = ({
         </ControlWrapper>
 
         <ControlWrapper
-          isRequired={isFieldRequired("title")}
-          label={t("category:title")}
-          error={errors.title?.message}>
-          <Input {...register("title")} autoFocus />
+          isRequired={isFieldRequired("name")}
+          label={t("common:name")}
+          error={errors.name?.message}>
+          <Input {...register("name")} autoFocus />
         </ControlWrapper>
 
         <ControlWrapper

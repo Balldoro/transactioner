@@ -23,7 +23,7 @@ export type FullGroup = Group & {
 
 export type TransactionFormValues = {
   category: string;
-  title: string;
+  name: string;
   amount: string;
   date: Date;
   payedBy: string;
